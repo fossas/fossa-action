@@ -6,12 +6,7 @@ export async function analyze(): Promise<void> {
   const PATH = process.env.PATH || '';
   const options = { env: { ...process.env, PATH, FOSSA_API_KEY} };
 
-  const getArgs = (cmd: string) => {
-    const args = [cmd];
-    if (CONTAINER) args.unshift('container');
-
-    return args;
-  };
+  const getArgs = (cmd: string) => [CONTAINER ? 'container' : null, cmd].filter(arg => arg);
 
   await exec('fossa', [...getArgs('analyze'), CONTAINER], options);
 
