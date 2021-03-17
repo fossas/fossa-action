@@ -1,19 +1,19 @@
-import { addPath } from "@actions/core";
-import { getOctokit } from "@actions/github";
-import { extractZip, find, downloadTool, cacheDir} from "@actions/tool-cache";
-import { GITHUB_TOKEN } from "./config";
+import { addPath } from '@actions/core';
+import { getOctokit } from '@actions/github';
+import { extractZip, find, downloadTool, cacheDir} from '@actions/tool-cache';
+import { GITHUB_TOKEN } from './config';
 
 const octokit = getOctokit(GITHUB_TOKEN);
 const platform = getPlatform();
 
 function getPlatform() {
   switch (process.platform) {
-    case "win32":
-      return "windows_amd64";
-    case "darwin":
-      return "darwin_amd64";
-    default:
-      return "linux_amd64";
+  case 'win32':
+    return 'windows_amd64';
+  case 'darwin':
+    return 'darwin_amd64';
+  default:
+    return 'linux_amd64';
   }
 }
 
@@ -22,23 +22,23 @@ async function getLatestRelease() {
   const {
     data: { assets, tag_name: version },
   } = await octokit.repos.getLatestRelease({
-    owner: "fossas",
-    repo: "spectrometer",
+    owner: 'fossas',
+    repo: 'spectrometer',
   });
 
   const [{ browser_download_url: browserDownloadUrl }] = assets.filter(
-    (asset) => {
+    (asset) =>
       // Find platform and ignore pathfinder binaries
-      return asset.browser_download_url.includes(platform) && !asset.browser_download_url.includes('pathfinder');
-    }
+      asset.browser_download_url.includes(platform) && !asset.browser_download_url.includes('pathfinder'),
+
   );
 
   return { version, browserDownloadUrl };
 }
 
 async function extract(cliDownloadedPath: string) {
-    const cliExtractedPath = await extractZip(cliDownloadedPath);
-    return cliExtractedPath;
+  const cliExtractedPath = await extractZip(cliDownloadedPath);
+  return cliExtractedPath;
 }
 
 export async function fetchFossaCli(): Promise<void> {
@@ -52,7 +52,7 @@ export async function fetchFossaCli(): Promise<void> {
       extractedPath,
       'fossa',
       version,
-      platform
+      platform,
     );
   }
 
