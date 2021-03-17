@@ -5,8 +5,6 @@ author: Solomon Rubin
 inputs:
   api-key:
     required: true
-  github-token:
-    default: ${{ github.token }}
   run-test:
     default: true
   container:

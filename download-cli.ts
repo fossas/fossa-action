@@ -1,10 +1,9 @@
-import { addPath } from '@actions/core';
-import { getOctokit } from '@actions/github';
-import { extractZip, find, downloadTool, cacheDir} from '@actions/tool-cache';
-import { GITHUB_TOKEN } from './config';
+import { addPath, debug } from '@actions/core';
+import { exec } from '@actions/exec';
+import { find, downloadTool, cacheDir, cacheFile, findAllVersions} from '@actions/tool-cache';
+import fs = require('fs');
 
-const octokit = getOctokit(GITHUB_TOKEN);
-const platform = getPlatform();
+const CACHE_NAME = 'fossa';
 
 function getPlatform() {
   switch (process.platform) {
@@ -17,44 +16,57 @@ function getPlatform() {
   }
 }
 
-async function getLatestRelease() {
-  // I don't like this method
-  const {
-    data: { assets, tag_name: version },
-  } = await octokit.repos.getLatestRelease({
-    owner: 'fossas',
-    repo: 'spectrometer',
-  });
+async function getInstaller() {
+  const name = 'fossa-installer';
+  const version = '1.0.0';
+  const platform = getPlatform();
+  let downloadPath = find(name, version, platform);
 
-  const [{ browser_download_url: browserDownloadUrl }] = assets.filter(
-    (asset) =>
-      // Find platform and ignore pathfinder binaries
-      asset.browser_download_url.includes(platform) && !asset.browser_download_url.includes('pathfinder'),
+  if (!downloadPath) {
+    downloadPath = await downloadTool(
+      'https://raw.githubusercontent.com/fossas/spectrometer/master/install.sh',
+    );
 
-  );
-
-  return { version, browserDownloadUrl };
-}
-
-async function extract(cliDownloadedPath: string) {
-  const cliExtractedPath = await extractZip(cliDownloadedPath);
-  return cliExtractedPath;
-}
-
-export async function fetchFossaCli(): Promise<void> {
-  const { browserDownloadUrl, version } = await getLatestRelease();
-  let cachedPath = find('fossa', version, platform);
-
-  if (!cachedPath) {
-    const downloadedPath = await downloadTool(browserDownloadUrl);
-    const extractedPath = await extract(downloadedPath);
-    cachedPath = await cacheDir(
-      extractedPath,
-      'fossa',
+    await cacheFile(
+      downloadPath,
+      name,
       version,
       platform,
     );
   }
 
-  addPath(cachedPath);
+  return downloadPath;
+}
+
+export async function fetchFossaCli(): Promise<void> {
+  const installer = await getInstaller();
+  const platform = getPlatform();
+  const devNull = fs.createWriteStream('/dev/null', {flags: 'a'});
+
+  // Get cached path
+  const latestVersion = findAllVersions(CACHE_NAME, platform).sort().reverse()[0] || '-1'; // We'll never cache a version as -1
+  let fossaPath = find(CACHE_NAME, latestVersion, platform);
+
+  if (latestVersion) debug(`Using FOSSA version ${latestVersion}`);
+
+  if (!fossaPath) {
+    debug(`Fetching new FOSSA version`);
+    await exec('bash', [installer, '-b', './fossa'], {outStream: devNull});
+
+    let versionExecOut = '';
+    const listeners = {
+      stdout: (data: Buffer) => {
+        versionExecOut += data.toString();
+      },
+    };
+
+    await exec('./fossa/fossa', ['--version'], {listeners, outStream: devNull});
+    const version = versionExecOut.match(/version (\d.\d.\d)/)[1] || 'nover';
+    fossaPath = await cacheDir('./fossa/', CACHE_NAME, version, platform);
+
+    debug(`Found FOSSA version ${version}`);
+  }
+
+  addPath(fossaPath);
+  devNull.close();
 }
