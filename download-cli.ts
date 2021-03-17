@@ -1,6 +1,7 @@
 import { addPath } from '@actions/core';
 import { exec } from '@actions/exec';
 import { find, downloadTool, cacheDir, cacheFile} from '@actions/tool-cache';
+import fs = require('fs');
 
 function getPlatform() {
   switch (process.platform) {
@@ -38,13 +39,15 @@ async function getInstaller() {
 export async function fetchFossaCli(): Promise<void> {
   const installer = await getInstaller();
   const platform = getPlatform();
+  const devNull = fs.createWriteStream('/dev/null', {flags: 'a'});
 
   let fossaPath = find('fossa', '1', platform); // Find - findAllVersions?
 
   if (!fossaPath) {
-    await exec('bash', [installer, '-b', './fossa']);
+    await exec('bash', [installer, '-b', './fossa'], {outStream: devNull});
     fossaPath = await cacheDir('./fossa/', 'fossa', '1', platform);
   }
 
   addPath(fossaPath);
+  devNull.close();
 }
