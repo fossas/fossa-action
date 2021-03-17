@@ -9,6 +9,8 @@ inputs:
     default: ${{ github.token }}
   run-test:
     default: true
+  container:
+    required: false
 
 runs:
   using: node12

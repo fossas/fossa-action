@@ -35,3 +35,9 @@ jobs:
         uses: ./
         with:
           api-key: ${{secrets.fossaApiKey}}
+
+      - name: Run FOSSA container scan and upload build data
+        uses: ./
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          container: alpine:latest
