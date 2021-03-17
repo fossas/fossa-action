@@ -41,3 +41,10 @@ jobs:
         with:
           api-key: ${{secrets.fossaApiKey}}
           container: alpine:latest
+
+      - name: Run FOSSA container scan and test
+        uses: ./
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          container: alpine:latest
+          run_tests: true

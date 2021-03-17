@@ -5,14 +5,18 @@ import { fetchFossaCli } from './download-cli';
 
 export async function analyze(): Promise<void> {
   const PATH = process.env.PATH || '';
-  const options = { env: { ...process.env, PATH, FOSSA_API_KEY} };
+  const options = { env: { ...process.env, PATH, FOSSA_API_KEY}};
 
   const getArgs = (cmd: string) => [CONTAINER ? 'container' : null, cmd].filter(arg => arg);
 
-  await exec('fossa', [...getArgs('analyze'), CONTAINER], options);
+  if (await exec('fossa', [...getArgs('analyze'), CONTAINER], options) !== 0) {
+    throw new Error(`FOSSA failed to scan`);
+  }
 
   if (RUN_TESTS) {
-    await exec('fossa', [...getArgs('test'), CONTAINER], options);
+    if (await exec('fossa', [...getArgs('test'), CONTAINER], options) !== 0) {
+      throw new Error(`Fossa tests failed`);
+    }
   }
 }
 
