@@ -1,0 +1,19 @@
+name: FOSSA Action
+description: Find license compliance and security issues in your applications with FOSSA
+author: Solomon Rubin
+
+inputs:
+  api-key:
+    required: true
+  github-token:
+    default: ${{ github.token }}
+  run-test:
+    default: true
+
+runs:
+  using: node12
+  main: dist/index.js
+
+branding:
+  icon: 'check-circle'
+  color: 'green'
