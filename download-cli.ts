@@ -1,6 +1,6 @@
 import { addPath } from "@actions/core";
 import { getOctokit } from "@actions/github";
-import { extractZip, find, downloadTool, cacheFile} from "@actions/tool-cache";
+import { extractZip, find, downloadTool, cacheDir} from "@actions/tool-cache";
 import { GITHUB_TOKEN } from "./config";
 
 const octokit = getOctokit(GITHUB_TOKEN);
@@ -48,7 +48,7 @@ export async function fetchFossaCli(): Promise<void> {
   if (!cachedPath) {
     const downloadedPath = await downloadTool(browserDownloadUrl);
     const extractedPath = await extract(downloadedPath);
-    cachedPath = await cacheFile(
+    cachedPath = await cacheDir(
       extractedPath,
       'fossa',
       version,
