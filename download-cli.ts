@@ -1,7 +1,9 @@
-import { addPath } from '@actions/core';
+import { addPath, debug } from '@actions/core';
 import { exec } from '@actions/exec';
-import { find, downloadTool, cacheDir, cacheFile} from '@actions/tool-cache';
+import { find, downloadTool, cacheDir, cacheFile, findAllVersions} from '@actions/tool-cache';
 import fs = require('fs');
+
+const CACHE_NAME = 'fossa';
 
 function getPlatform() {
   switch (process.platform) {
@@ -41,11 +43,23 @@ export async function fetchFossaCli(): Promise<void> {
   const platform = getPlatform();
   const devNull = fs.createWriteStream('/dev/null', {flags: 'a'});
 
-  let fossaPath = find('fossa', '1', platform); // Find - findAllVersions?
+  // Get cached path
+  const latestVersion = findAllVersions(CACHE_NAME, platform).sort().reverse()[0] || '-1'; // We'll never cache a version as -1
+  let fossaPath = find(CACHE_NAME, latestVersion, platform);
 
   if (!fossaPath) {
     await exec('bash', [installer, '-b', './fossa'], {outStream: devNull});
-    fossaPath = await cacheDir('./fossa/', 'fossa', '1', platform);
+
+    let versionExecOut = '';
+    const listeners = {
+      stdout: (data: Buffer) => {
+        versionExecOut += data.toString();
+      },
+    };
+
+    await exec('./fossa/fossa', ['--version'], {listeners, outStream: devNull});
+    const version = versionExecOut.match(/version (\d.\d.\d)/)[1] || 'nover';
+    fossaPath = await cacheDir('./fossa/', CACHE_NAME, version, platform);
   }
 
   addPath(fossaPath);
