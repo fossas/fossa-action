@@ -1,3 +1,4 @@
+import { error, setFailed } from '@actions/core';
 import { exec } from '@actions/exec';
 import { CONTAINER, FOSSA_API_KEY, RUN_TESTS } from './config';
 import { fetchFossaCli } from './download-cli';
@@ -16,8 +17,17 @@ export async function analyze(): Promise<void> {
 }
 
 async function run() {
-  await fetchFossaCli();
-  await analyze();
+  try {
+    await fetchFossaCli();
+  } catch (e) {
+    error(`There was an error fetching FOSSA CLI. ${e}`);
+  }
+
+  try {
+    await analyze();
+  } catch (e) {
+    setFailed(e);
+  }
 }
 
 run();
