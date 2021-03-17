@@ -29,9 +29,9 @@ async function getInstaller() {
 
     await cacheFile(
       downloadPath,
-      'fossa-installer',
-      '1.0.0',
-      'linux',
+      name,
+      version,
+      platform,
     );
   }
 
@@ -47,7 +47,10 @@ export async function fetchFossaCli(): Promise<void> {
   const latestVersion = findAllVersions(CACHE_NAME, platform).sort().reverse()[0] || '-1'; // We'll never cache a version as -1
   let fossaPath = find(CACHE_NAME, latestVersion, platform);
 
+  if (latestVersion) debug(`Using FOSSA version ${latestVersion}`);
+
   if (!fossaPath) {
+    debug(`Fetching new FOSSA version`);
     await exec('bash', [installer, '-b', './fossa'], {outStream: devNull});
 
     let versionExecOut = '';
@@ -60,6 +63,8 @@ export async function fetchFossaCli(): Promise<void> {
     await exec('./fossa/fossa', ['--version'], {listeners, outStream: devNull});
     const version = versionExecOut.match(/version (\d.\d.\d)/)[1] || 'nover';
     fossaPath = await cacheDir('./fossa/', CACHE_NAME, version, platform);
+
+    debug(`Found FOSSA version ${version}`);
   }
 
   addPath(fossaPath);
