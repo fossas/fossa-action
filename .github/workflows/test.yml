@@ -10,7 +10,7 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - macos-latest
+          # - macos-latest
           - ubuntu-latest
           # - windows-latest
 
@@ -36,8 +36,20 @@ jobs:
         with:
           api-key: ${{secrets.fossaApiKey}}
 
+      - name: Run FOSSA test
+        uses: ./
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          run-tests: true
       - name: Run FOSSA container scan and upload build data
         uses: ./
         with:
           api-key: ${{secrets.fossaApiKey}}
           container: alpine:latest
+
+      - name: Run FOSSA test
+        uses: ./
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          container: alpine:latest
+          run-tests: true
