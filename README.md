@@ -17,7 +17,7 @@ FOSSA Action will run on any linux runner or on a MacOS runner. **Note**: In ord
 Windows is not currently supported.
 
 ### Versioning
-Please note: Versioning of this action does not corrispond to the version of FOSSA CLI. This Action will always use the latest version of FOSSA CLI found [here](https://github.com/fossas/spectrometer/releases).
+Please note: Versioning of this action does not correspond to the version of FOSSA CLI. This Action will always use the latest version of FOSSA CLI found [here](https://github.com/fossas/spectrometer/releases).
 
 ## Inputs
 
