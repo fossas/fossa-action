@@ -53,9 +53,10 @@ export async function fetchFossaCli(): Promise<void> {
 
   if (!fossaPath) {
     debug(`Fetching new FOSSA version`);
-    const retcode = await exec('bash', [installer, '-b', './fossa'], {...defaultOptions});
 
-    if (retcode !== 0) throw new Error(`Fossa failed to install correctly`);
+    if (await exec('bash', [installer, '-b', './fossa'], {...defaultOptions}) !== 0) {
+      throw new Error(`Fossa failed to install correctly`);
+    }
 
     let versionExecOut = '';
     const listeners = {

@@ -5,8 +5,8 @@ author: Solomon Rubin
 inputs:
   api-key:
     required: true
-  run-test:
-    default: true
+  run-tests:
+    default: false
   container:
     required: false
 
