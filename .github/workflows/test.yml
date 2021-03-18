@@ -5,17 +5,10 @@ on:
   - push
 
 jobs:
-  build:
+  fossa-scan:
     strategy:
       fail-fast: false
-      matrix:
-        os:
-          # - macos-latest
-          - ubuntu-latest
-          # - windows-latest
-
-    runs-on: ${{ matrix.os }}
-
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -41,6 +34,7 @@ jobs:
         with:
           api-key: ${{secrets.fossaApiKey}}
           run-tests: true
+
       - name: Run FOSSA container scan and upload build data
         uses: ./
         with:
