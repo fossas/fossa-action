@@ -27,7 +27,7 @@ Example
 ```yml
 jobs:
   fossa-scan:
-    runs-on: unbuntu-latest
+    runs-on: ubuntu-latest
     steps:
       uses: actions/checkout@v2
       uses: fossas/fossa-action@v1
@@ -43,8 +43,8 @@ Example
 ```yml
 jobs:
   fossa-scan:
-    runs-on: unbuntu-latest
-      steps:
+    runs-on: ubuntu-latest
+    steps:
       uses: actions/checkout@v2
       uses: fossas/fossa-action@v1
       with:
@@ -60,7 +60,7 @@ Example
 ```yml
 jobs:
   fossa-scan:
-    runs-on: unbuntu-latest
+    runs-on: ubuntu-latest
     steps:
       uses: actions/checkout@v2
       uses: fossas/fossa-action@v1
@@ -78,7 +78,7 @@ This runs a basic FOSSA scan using FOSSA CLI on a your checked out project.
 ```yml
 jobs:
   fossa-scan:
-    runs-on: unbuntu-latest
+    runs-on: ubuntu-latest
     steps:
       uses: actions/checkout@v2
       uses: fossas/fossa-action@v1
@@ -92,21 +92,21 @@ This run `fossa tests` after doing an initial scan.
 ```yml
 jobs:
   fossa-scan:
-    runs-on: unbuntu-latest
-      steps:
-        - name: "Checkout Code"
-          uses: actions/checkout@v2
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Code"
+        uses: actions/checkout@v2
 
-        - name: "Run FOSSA Scan"
-          uses: fossas/fossa-action@v1
-          with:
-            api-key: ${{secrets.fossaApiKey}}
+      - name: "Run FOSSA Scan"
+        uses: fossas/fossa-action@v1
+        with:
+          api-key: ${{secrets.fossaApiKey}}
 
-        - name: "Run FOSSA Test"
-          uses: fossas/fossa-action@v1
-          with:
-            api-key: ${{secrets.fossaApiKey}}
-            run-tests: true
+      - name: "Run FOSSA Test"
+        uses: fossas/fossa-action@v1
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          run-tests: true
 ```
 
 ### Running Container Scanning
@@ -115,21 +115,21 @@ Running container scanning is extremely similar to running FOSSA with a traditio
 ```yml
 jobs:
   fossa-scan:
-    runs-on: unbuntu-latest
-      steps:
-        - name: "Checkout Code"
-          uses: actions/checkout@v2
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Code"
+        uses: actions/checkout@v2
 
-        - name: "Run FOSSA Scan"
-          uses: fossas/fossa-action@v1
-          with:
-            api-key: ${{secrets.fossaApiKey}}
-            container: ubuntu:20.04
+      - name: "Run FOSSA Scan"
+        uses: fossas/fossa-action@v1
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          container: ubuntu:20.04
 
-        - name: "Run FOSSA Test"
-          uses: fossas/fossa-action@v1
-          with:
-            api-key: ${{secrets.fossaApiKey}}
-            container: ubuntu:20.04
-            run-tests: true
+      - name: "Run FOSSA Test"
+        uses: fossas/fossa-action@v1
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          container: ubuntu:20.04
+          run-tests: true
 ```
