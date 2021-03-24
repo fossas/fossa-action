@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint .",
-    "build": "tsc"
+    "build": "ncc build src/index.ts -o dist --source-map --license LICENSE"
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
@@ -16,6 +16,7 @@
     "@types/node": "^10.9.4",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.8.0",
+    "@vercel/ncc": "^0.27.0",
     "eslint": "^7.10.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-standard": "^14.1.0",
