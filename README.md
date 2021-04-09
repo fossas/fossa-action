@@ -17,7 +17,7 @@ FOSSA Action will run on any linux runner or on a MacOS runner. **Note**: In ord
 Windows is not currently supported.
 
 ### Versioning
-Please note: Versioning of this action does not correspond to the version of FOSSA CLI. This Action will always use the latest version of FOSSA CLI found [here](https://github.com/fossas/spectrometer/releases).
+Please note: Versioning of this action does not correspond to the version of FOSSA CLI. This Action will always use the latest version of FOSSA CLI V2 found [here](https://github.com/fossas/spectrometer/releases).
 
 ## Inputs
 
@@ -38,7 +38,7 @@ jobs:
 ### `run-tests`
 **Optional** If set to `true` FOSSA will run the `fossa test` command.
 
-If not set or set to `false` FOSSA will run normal scan behavior.
+If not set or set to `false` FOSSA will run normal scan behavior. In order to run tests, a scan must first be completed.
 Example
 ```yml
 jobs:
