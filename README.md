@@ -2,7 +2,7 @@
 [![FOSSA Status](https://app.fossa.com/api/projects/custom%2B1%2Fgithub.com%2Ffossas%2Ffossa-action.svg?type=shield)](https://app.fossa.com/projects/custom%2B1%2Fgithub.com%2Ffossas%2Ffossa-action?ref=badge_shield)
 [![FOSSA Action](https://github.com/fossas/fossa-action/actions/workflows/test.yml/badge.svg)](https://github.com/fossas/fossa-action/actions/)
 
-Find license compliance and security issues in your applications with [FOSSA](https://fossa.com) in Github Actions.
+Find license compliance and security issues in your applications with [FOSSA](https://fossa.com) in Github Actions, using FOSSA CLI V2.
 
 ## About FOSSA
 * Developer focused open source license and security compliance
@@ -10,7 +10,7 @@ Find license compliance and security issues in your applications with [FOSSA](ht
 * Secure your open source code with accurate vulnerability detection and continuous integration
 
 ## About FOSSA Action
-FOSSA Action provides an easy to use entry point to using FOSSA in your github workflow. Below you can find [input documentation](#inputs) and [examples](#examples).
+FOSSA Action provides an easy to use entry point to using FOSSA in your github workflow. This github action will run FOSSA CLI V2 in your github workflows with, at minimum, an API key. Below you can find [input documentation](#inputs) and [examples](#examples).
 
 FOSSA Action will run on any linux runner or on a MacOS runner. **Note**: In order to use container scanning, a running docker daemon is required - unfortunately Github's MacOS runner does not provide docker.
 
