@@ -46,6 +46,7 @@ async function run() {
   try {
     await fetchFossaCli();
   } catch (e) {
+    console.log(e.stack);
     error(`There was an error fetching FOSSA CLI. ${e}`);
   }
 
