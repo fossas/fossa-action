@@ -66,7 +66,7 @@ export async function fetchFossaCli(): Promise<void> {
     };
 
     await exec('./fossa/fossa', ['--version'], {listeners, ...defaultOptions});
-    const version = versionExecOut.match(/version (\d.\d.\d)/)[1] || 'nover';
+    const version = versionExecOut.match(/version (\d+.\d+.\d+)/)[1] || 'nover';
     fossaPath = await cacheDir('./fossa/', CACHE_NAME, version, platform);
 
     debug(`Found FOSSA version ${version}`);
