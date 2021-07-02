@@ -5012,7 +5012,7 @@ function fetchFossaCli() {
                 },
             };
             yield exec_1.exec('./fossa/fossa', ['--version'], Object.assign({ listeners }, defaultOptions));
-            const version = versionExecOut.match(/version (\d.\d.\d)/)[1] || 'nover';
+            const version = versionExecOut.match(/version (\d+.\d+.\d+)/)[1] || 'nover';
             fossaPath = yield tool_cache_1.cacheDir('./fossa/', CACHE_NAME, version, platform);
             core_1.debug(`Found FOSSA version ${version}`);
         }
