@@ -1,12 +1,21 @@
 import { error, setFailed } from '@actions/core';
 import { exec } from '@actions/exec';
-import { CONTAINER, FOSSA_API_KEY, RUN_TESTS } from './config';
+import {
+  CONTAINER,
+  FOSSA_API_KEY,
+  RUN_TESTS,
+  ENDPOINT,
+} from './config';
 import { fetchFossaCli } from './download-cli';
 
 export async function analyze(): Promise<void> {
   // Github doesn't always collect exit codes correctly, so we check output
   const failedRegex = /(A fatal error occurred|Test failed\. Number of issues found)/;
-  const getArgs = (cmd: string) => [CONTAINER ? 'container' : null, cmd].filter(arg => arg);
+  const getArgs = (cmd: string) => [
+    ENDPOINT ? `-e ${ENDPOINT}` : null,
+    CONTAINER ? 'container' : null,
+    cmd,
+  ].filter(arg => arg);
 
   // Setup listeners
   let output;
