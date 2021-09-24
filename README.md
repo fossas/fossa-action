@@ -69,6 +69,22 @@ jobs:
         container: ubuntu:20.04
 ```
 
+### `endpoint`
+**Optional** Endpoint passed to FOSSA CLI. Defaults to `app.fossa.com`. [Read more](https://github.com/fossas/spectrometer/blob/master/docs/userguide.md#common-fossa-project-flags).
+
+Example
+```yml
+jobs:
+  fossa-scan:
+    runs-on: ubuntu-latest
+    steps:
+      uses: actions/checkout@v2
+      uses: fossas/fossa-action@v1
+      with:
+        api-key: ${{secrets.fossaApiKey}}
+        endpoint: fossa.my-company.com
+```
+
 ## Examples
 We've provided a few examples of how to use FOSSA's Github Action in your own project. These examples use an API key stored as a Github secret environment variable `fossaAPiKey`.
 
