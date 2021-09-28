@@ -5050,10 +5050,14 @@ function analyze() {
     return __awaiter(this, void 0, void 0, function* () {
         // Github doesn't always collect exit codes correctly, so we check output
         const failedRegex = /(A fatal error occurred|Test failed\. Number of issues found)/;
+        const getEndpointArgs = () => !config_1.ENDPOINT ? [] : [
+            '--endpoint',
+            config_1.ENDPOINT,
+        ];
         const getArgs = (cmd) => [
             config_1.CONTAINER ? 'container' : null,
             cmd,
-            config_1.ENDPOINT ? `--endpoint '${config_1.ENDPOINT}'` : null,
+            ...getEndpointArgs(),
         ].filter(arg => arg);
         // Setup listeners
         let output;
