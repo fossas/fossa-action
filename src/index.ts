@@ -14,7 +14,7 @@ export async function analyze(): Promise<void> {
   const getArgs = (cmd: string) => [
     CONTAINER ? 'container' : null,
     cmd,
-    ENDPOINT ? `-e ${ENDPOINT}` : null,
+    ENDPOINT ? `--endpoint '${ENDPOINT}'` : null,
   ].filter(arg => arg);
 
   // Setup listeners
@@ -35,11 +35,6 @@ export async function analyze(): Promise<void> {
   if (!RUN_TESTS) {
     output = '';
     const exitCode = await exec('fossa', [...getArgs('analyze'), CONTAINER], defaultOptions);
-
-    console.log('\n\n\n\n\n\n');
-    console.log('FOSSA_API_KEY', FOSSA_API_KEY);
-    console.log(`getArgs('analyze')`, getArgs('analyze'));
-    console.log('\n\n\n\n\n\n');
 
     // Check output or exitCode
     if (exitCode !== 0 || output.match(failedRegex)) {

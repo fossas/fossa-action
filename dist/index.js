@@ -5053,7 +5053,7 @@ function analyze() {
         const getArgs = (cmd) => [
             config_1.CONTAINER ? 'container' : null,
             cmd,
-            config_1.ENDPOINT ? `-e ${config_1.ENDPOINT}` : null,
+            config_1.ENDPOINT ? `--endpoint '${config_1.ENDPOINT}'` : null,
         ].filter(arg => arg);
         // Setup listeners
         let output;
@@ -5070,10 +5070,6 @@ function analyze() {
         if (!config_1.RUN_TESTS) {
             output = '';
             const exitCode = yield exec_1.exec('fossa', [...getArgs('analyze'), config_1.CONTAINER], defaultOptions);
-            console.log('\n\n\n\n\n\n');
-            console.log('FOSSA_API_KEY', config_1.FOSSA_API_KEY);
-            console.log(`getArgs('analyze')`, getArgs('analyze'));
-            console.log('\n\n\n\n\n\n');
             // Check output or exitCode
             if (exitCode !== 0 || output.match(failedRegex)) {
                 throw new Error(`FOSSA failed to scan`);
