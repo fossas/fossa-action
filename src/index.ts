@@ -11,11 +11,18 @@ import { fetchFossaCli } from './download-cli';
 export async function analyze(): Promise<void> {
   // Github doesn't always collect exit codes correctly, so we check output
   const failedRegex = /(A fatal error occurred|Test failed\. Number of issues found)/;
-  const getArgs = (cmd: string) => [
-    ENDPOINT ? `-e ${ENDPOINT}` : null,
-    CONTAINER ? 'container' : null,
-    cmd,
-  ].filter(arg => arg);
+  const getArgs = (cmd: string) => {
+    const rgs = [
+      CONTAINER ? 'container' : null,
+      cmd,
+      ENDPOINT ? `-e ${ENDPOINT}` : null,
+    ].filter(arg => arg);
+    console.log('\n\n\n\n\n\n\n\n\n');
+    console.log('HEY DAVE\n\n');
+    console.log(rgs);
+    console.log('\n\n\n\n\n\n\n\n\n');
+    return rgs;
+  }
 
   // Setup listeners
   let output;
