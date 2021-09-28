@@ -5050,18 +5050,11 @@ function analyze() {
     return __awaiter(this, void 0, void 0, function* () {
         // Github doesn't always collect exit codes correctly, so we check output
         const failedRegex = /(A fatal error occurred|Test failed\. Number of issues found)/;
-        const getArgs = (cmd) => {
-            const rgs = [
-                config_1.CONTAINER ? 'container' : null,
-                cmd,
-                config_1.ENDPOINT ? `-e ${config_1.ENDPOINT}` : null,
-            ].filter(arg => arg);
-            console.log('\n\n\n\n\n\n\n\n\n');
-            console.log('HEY DAVE\n\n');
-            console.log(rgs);
-            console.log('\n\n\n\n\n\n\n\n\n');
-            return rgs;
-        };
+        const getArgs = (cmd) => [
+            config_1.CONTAINER ? 'container' : null,
+            cmd,
+            config_1.ENDPOINT ? `-e ${config_1.ENDPOINT}` : null,
+        ].filter(arg => arg);
         // Setup listeners
         let output;
         const collectOutput = (data) => {
@@ -5077,6 +5070,10 @@ function analyze() {
         if (!config_1.RUN_TESTS) {
             output = '';
             const exitCode = yield exec_1.exec('fossa', [...getArgs('analyze'), config_1.CONTAINER], defaultOptions);
+            console.log('\n\n\n\n\n\n');
+            console.log('FOSSA_API_KEY', config_1.FOSSA_API_KEY);
+            console.log(`getArgs('analyze')`, getArgs('analyze'));
+            console.log('\n\n\n\n\n\n');
             // Check output or exitCode
             if (exitCode !== 0 || output.match(failedRegex)) {
                 throw new Error(`FOSSA failed to scan`);

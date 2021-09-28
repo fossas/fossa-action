@@ -11,18 +11,11 @@ import { fetchFossaCli } from './download-cli';
 export async function analyze(): Promise<void> {
   // Github doesn't always collect exit codes correctly, so we check output
   const failedRegex = /(A fatal error occurred|Test failed\. Number of issues found)/;
-  const getArgs = (cmd: string) => {
-    const rgs = [
-      CONTAINER ? 'container' : null,
-      cmd,
-      ENDPOINT ? `-e ${ENDPOINT}` : null,
-    ].filter(arg => arg);
-    console.log('\n\n\n\n\n\n\n\n\n');
-    console.log('HEY DAVE\n\n');
-    console.log(rgs);
-    console.log('\n\n\n\n\n\n\n\n\n');
-    return rgs;
-  }
+  const getArgs = (cmd: string) => [
+    CONTAINER ? 'container' : null,
+    cmd,
+    ENDPOINT ? `-e ${ENDPOINT}` : null,
+  ].filter(arg => arg);
 
   // Setup listeners
   let output;
@@ -42,6 +35,11 @@ export async function analyze(): Promise<void> {
   if (!RUN_TESTS) {
     output = '';
     const exitCode = await exec('fossa', [...getArgs('analyze'), CONTAINER], defaultOptions);
+
+    console.log('\n\n\n\n\n\n');
+    console.log('FOSSA_API_KEY', FOSSA_API_KEY);
+    console.log(`getArgs('analyze')`, getArgs('analyze'));
+    console.log('\n\n\n\n\n\n');
 
     // Check output or exitCode
     if (exitCode !== 0 || output.match(failedRegex)) {
