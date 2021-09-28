@@ -9,6 +9,8 @@ inputs:
     default: false
   container:
     required: false
+  endpoint:
+    required: false
 
 runs:
   using: node12
