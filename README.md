@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       uses: actions/checkout@v2
-      uses: fossas/fossa-action@v1
+      uses: fossas/fossa-action@latest
       with:
         api-key: ${{secrets.fossaApiKey}}
 ```
@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       uses: actions/checkout@v2
-      uses: fossas/fossa-action@v1
+      uses: fossas/fossa-action@latest
       with:
         api-key: ${{secrets.fossaApiKey}}
         run-tests: true
@@ -63,10 +63,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       uses: actions/checkout@v2
-      uses: fossas/fossa-action@v1
+      uses: fossas/fossa-action@latest
       with:
         api-key: ${{secrets.fossaApiKey}}
         container: ubuntu:20.04
+```
+
+### `endpoint`
+**Optional** Endpoint passed to FOSSA CLI. Defaults to `app.fossa.com`. [Read more](https://github.com/fossas/spectrometer/blob/master/docs/userguide.md#common-fossa-project-flags).
+
+Example
+```yml
+jobs:
+  fossa-scan:
+    runs-on: ubuntu-latest
+    steps:
+      uses: actions/checkout@v2
+      uses: fossas/fossa-action@latest
+      with:
+        api-key: ${{secrets.fossaApiKey}}
+        endpoint: fossa.my-company.com
 ```
 
 ## Examples
@@ -81,7 +97,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       uses: actions/checkout@v2
-      uses: fossas/fossa-action@v1
+      uses: fossas/fossa-action@latest
       with:
         api-key: ${{secrets.fossaApiKey}}
 ```
@@ -98,12 +114,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: "Run FOSSA Scan"
-        uses: fossas/fossa-action@v1
+        uses: fossas/fossa-action@latest
         with:
           api-key: ${{secrets.fossaApiKey}}
 
       - name: "Run FOSSA Test"
-        uses: fossas/fossa-action@v1
+        uses: fossas/fossa-action@latest
         with:
           api-key: ${{secrets.fossaApiKey}}
           run-tests: true
@@ -121,13 +137,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: "Run FOSSA Scan"
-        uses: fossas/fossa-action@v1
+        uses: fossas/fossa-action@latest
         with:
           api-key: ${{secrets.fossaApiKey}}
           container: ubuntu:20.04
 
       - name: "Run FOSSA Test"
-        uses: fossas/fossa-action@v1
+        uses: fossas/fossa-action@latest
         with:
           api-key: ${{secrets.fossaApiKey}}
           container: ubuntu:20.04

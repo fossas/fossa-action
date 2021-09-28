@@ -4936,11 +4936,12 @@ module.exports = v4;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.RUN_TESTS = exports.CONTAINER = exports.FOSSA_API_KEY = void 0;
+exports.ENDPOINT = exports.RUN_TESTS = exports.CONTAINER = exports.FOSSA_API_KEY = void 0;
 const core_1 = __nccwpck_require__(186);
 exports.FOSSA_API_KEY = core_1.getInput('api-key', { required: true });
 exports.CONTAINER = core_1.getInput('container', { required: false });
 exports.RUN_TESTS = core_1.getInput('run-tests', { required: false }).toLocaleLowerCase() === 'true';
+exports.ENDPOINT = core_1.getInput('endpoint', { required: false });
 
 
 /***/ }),
@@ -5049,7 +5050,15 @@ function analyze() {
     return __awaiter(this, void 0, void 0, function* () {
         // Github doesn't always collect exit codes correctly, so we check output
         const failedRegex = /(A fatal error occurred|Test failed\. Number of issues found)/;
-        const getArgs = (cmd) => [config_1.CONTAINER ? 'container' : null, cmd].filter(arg => arg);
+        const getEndpointArgs = () => !config_1.ENDPOINT ? [] : [
+            '--endpoint',
+            config_1.ENDPOINT,
+        ];
+        const getArgs = (cmd) => [
+            config_1.CONTAINER ? 'container' : null,
+            cmd,
+            ...getEndpointArgs(),
+        ].filter(arg => arg);
         // Setup listeners
         let output;
         const collectOutput = (data) => {
