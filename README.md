@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       uses: actions/checkout@v2
-      uses: fossas/fossa-action@latest
+      uses: fossas/fossa-action@main # Use a specific version if locking is preferred
       with:
         api-key: ${{secrets.fossaApiKey}}
 ```
@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       uses: actions/checkout@v2
-      uses: fossas/fossa-action@latest
+      uses: fossas/fossa-action@main # Use a specific version if locking is preferred
       with:
         api-key: ${{secrets.fossaApiKey}}
         run-tests: true
@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       uses: actions/checkout@v2
-      uses: fossas/fossa-action@latest
+      uses: fossas/fossa-action@main # Use a specific version if locking is preferred
       with:
         api-key: ${{secrets.fossaApiKey}}
         container: ubuntu:20.04
@@ -79,7 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       uses: actions/checkout@v2
-      uses: fossas/fossa-action@latest
+      uses: fossas/fossa-action@main # Use a specific version if locking is preferred
       with:
         api-key: ${{secrets.fossaApiKey}}
         endpoint: fossa.my-company.com
@@ -97,7 +97,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       uses: actions/checkout@v2
-      uses: fossas/fossa-action@latest
+      uses: fossas/fossa-action@main # Use a specific version if locking is preferred
       with:
         api-key: ${{secrets.fossaApiKey}}
 ```
@@ -114,12 +114,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: "Run FOSSA Scan"
-        uses: fossas/fossa-action@latest
+        uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
           api-key: ${{secrets.fossaApiKey}}
 
       - name: "Run FOSSA Test"
-        uses: fossas/fossa-action@latest
+        uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
           api-key: ${{secrets.fossaApiKey}}
           run-tests: true
@@ -137,13 +137,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: "Run FOSSA Scan"
-        uses: fossas/fossa-action@latest
+        uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
           api-key: ${{secrets.fossaApiKey}}
           container: ubuntu:20.04
 
       - name: "Run FOSSA Test"
-        uses: fossas/fossa-action@latest
+        uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
           api-key: ${{secrets.fossaApiKey}}
           container: ubuntu:20.04
