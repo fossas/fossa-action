@@ -24,7 +24,7 @@ async function getInstaller() {
 
   if (!downloadPath) {
     downloadPath = await downloadTool(
-      'https://raw.githubusercontent.com/fossas/spectrometer/master/install.sh',
+      'https://raw.githubusercontent.com/fossas/fossa-cli/master/install-latest.sh',
     );
 
     await cacheFile(

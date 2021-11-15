@@ -4984,7 +4984,7 @@ function getInstaller() {
         const platform = getPlatform();
         let downloadPath = tool_cache_1.find(name, version, platform);
         if (!downloadPath) {
-            downloadPath = yield tool_cache_1.downloadTool('https://raw.githubusercontent.com/fossas/spectrometer/master/install.sh');
+            downloadPath = yield tool_cache_1.downloadTool('https://raw.githubusercontent.com/fossas/fossa-cli/master/install-latest.sh');
             yield tool_cache_1.cacheFile(downloadPath, name, version, platform);
         }
         return downloadPath;
