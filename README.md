@@ -69,7 +69,25 @@ jobs:
           container: ubuntu:20.04
 ```
 
+### `branch`
+
+**Optional** Branch passed to FOSSA CLI.
+
+Example
+```yml
+jobs:
+  fossa-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          endpoint: some-feature-branch
+```
+
 ### `endpoint`
+
 **Optional** Endpoint passed to FOSSA CLI. Defaults to `app.fossa.com`. [Read more](https://github.com/fossas/spectrometer/blob/master/docs/userguide.md#common-fossa-project-flags).
 
 Example
