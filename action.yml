@@ -11,6 +11,8 @@ inputs:
     required: false
   endpoint:
     required: false
+  branch:
+    required: false
 
 runs:
   using: node12
