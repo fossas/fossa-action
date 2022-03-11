@@ -4936,12 +4936,13 @@ module.exports = v4;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ENDPOINT = exports.RUN_TESTS = exports.CONTAINER = exports.FOSSA_API_KEY = void 0;
+exports.BRANCH = exports.ENDPOINT = exports.RUN_TESTS = exports.CONTAINER = exports.FOSSA_API_KEY = void 0;
 const core_1 = __nccwpck_require__(186);
 exports.FOSSA_API_KEY = core_1.getInput('api-key', { required: true });
 exports.CONTAINER = core_1.getInput('container', { required: false });
 exports.RUN_TESTS = core_1.getInput('run-tests', { required: false }).toLocaleLowerCase() === 'true';
 exports.ENDPOINT = core_1.getInput('endpoint', { required: false });
+exports.BRANCH = core_1.getInput('branch', { required: false });
 
 
 /***/ }),
@@ -5054,10 +5055,15 @@ function analyze() {
             '--endpoint',
             config_1.ENDPOINT,
         ];
+        const getBranchArgs = () => !config_1.BRANCH ? [] : [
+            '--branch',
+            config_1.BRANCH,
+        ];
         const getArgs = (cmd) => [
             config_1.CONTAINER ? 'container' : null,
             cmd,
             ...getEndpointArgs(),
+            ...getBranchArgs(),
         ].filter(arg => arg);
         // Setup listeners
         let output;
