@@ -3,12 +3,12 @@ name: 'FOSSA Action'
 # Ensures that this is only run once, either when pushing
 # directly to main OR when pushing to a PR against main.
 on:
-  - push
+  push:
     branches:
-      - main
-  - pull_request
+      main
+  pull_request:
     branches:
-      - main
+      main
 
 jobs:
   fossa-scan:
