@@ -22,8 +22,7 @@ inputs:
   branch:
     description: >-
       Override the detected FOSSA project branch. If running FOSSA analysis on a
-      Pull Request, as a start you can use the contexts ${{ github.ref }} or ${{
-      github.ref_name }}.
+      Pull Request, as a start you can use the contexts `github.ref` or `github.ref_name`.
     required: false
 
 runs:
