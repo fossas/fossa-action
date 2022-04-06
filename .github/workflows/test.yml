@@ -47,3 +47,9 @@ jobs:
           api-key: ${{secrets.fossaApiKey}}
           container: alpine:latest
           run-tests: true
+
+      - name: Run FOSSA scan
+        uses: ./
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          branch: 'develop'
