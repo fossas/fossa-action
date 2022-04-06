@@ -1,4 +1,4 @@
-import fs from 'node:fs';
+import * as fs from 'node:fs';
 import { addPath, debug } from '@actions/core';
 import { exec } from '@actions/exec';
 import { find, downloadTool, cacheDir, cacheFile, findAllVersions } from '@actions/tool-cache';
