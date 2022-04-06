@@ -1,8 +1,17 @@
 module.exports = {
+  'root': true,
   'parser': '@typescript-eslint/parser',
   'parserOptions': {
     'project': './tsconfig.json',
     'sourceType': 'module',
+  },
+  "ignorePatterns": ["dist/", ".eslintrc.js"],
+  'settings': {
+    'import/resolver': {
+      'node': {
+        'extensions': ['.ts', '.d.ts', '.js', '.json'],
+      },
+    },
   },
   'extends': [
     'eslint:recommended',
@@ -23,7 +32,6 @@ module.exports = {
     'node': true,
     'mocha': true,
   },
-  'root': true,
   "globals": {
     "GLOBAL": true,
   },
@@ -130,12 +138,5 @@ module.exports = {
     "prefer-arrow-callback": 0,
     '@typescript-eslint/no-use-before-define': ["error", {"variables": false, "typedefs": false, "functions": false, "classes": false }],
     'no-use-before-define': ["error", {"variables": true, "functions": false, "classes": false }],
-  },
-  'settings': {
-    'import/resolver': {
-      'node': {
-        'extensions': ['.ts', '.d.ts', '.js', '.json'],
-      },
-    },
   },
 };
