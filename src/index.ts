@@ -5,6 +5,7 @@ import {
   FOSSA_API_KEY,
   RUN_TESTS,
   ENDPOINT,
+  BRANCH,
 } from './config';
 import { fetchFossaCli } from './download-cli';
 
@@ -15,10 +16,16 @@ export async function analyze(): Promise<void> {
     '--endpoint',
     ENDPOINT,
   ];
+  const getBranchArgs = (): string[] => !BRANCH ? [] : [
+    '--branch',
+    BRANCH,
+  ];
+
   const getArgs = (cmd: string) => [
     CONTAINER ? 'container' : null,
     cmd,
     ...getEndpointArgs(),
+    ...getBranchArgs(),
   ].filter(arg => arg);
 
   // Setup listeners

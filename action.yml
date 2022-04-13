@@ -4,16 +4,29 @@ author: Solomon Rubin
 
 inputs:
   api-key:
+    description: >-
+      Your FOSSA API key.
     required: true
   run-tests:
+    description: >-
+      If set to `true` FOSSA will run the `fossa test` command.
     default: false
   container:
+    description: >-
+      A container name or OCI image path.  Set to use FOSSA's container scanning functionality. This will run `fossa container analyze` (default behavior) and `fossa container test` (if used in combination with `run-tests`).
     required: false
   endpoint:
+    description: >-
+      Endpoint passed to FOSSA CLI. Defaults to `app.fossa.com`.
+    required: false
+  branch:
+    description: >-
+      Override the detected FOSSA project branch. If running FOSSA analysis on a
+      Pull Request, as a start you can use the contexts `github.ref` or `github.ref_name`.
     required: false
 
 runs:
-  using: node12
+  using: node16
   main: dist/index.js
 
 branding:

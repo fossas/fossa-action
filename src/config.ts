@@ -1,6 +1,14 @@
-import { getInput } from '@actions/core';
+import { getInput, getBooleanInput } from '@actions/core';
+import type { InputOptions } from '@actions/core';
 
-export const FOSSA_API_KEY = getInput('api-key', {required: true});
-export const CONTAINER = getInput('container', {required: false});
-export const RUN_TESTS = getInput('run-tests', {required: false}).toLocaleLowerCase() === 'true';
-export const ENDPOINT = getInput('endpoint', {required: false});
+//  Helper to return the InputOptions for each call.
+const getInputOptions = (required: boolean = false): InputOptions => ({
+  required,
+  trimWhitespace: true,
+});
+
+export const FOSSA_API_KEY = getInput('api-key', getInputOptions(true));
+export const CONTAINER = getInput('container', getInputOptions());
+export const RUN_TESTS = getBooleanInput('run-tests', {required: false});
+export const ENDPOINT = getInput('endpoint', getInputOptions());
+export const BRANCH = getInput('branch', getInputOptions());

@@ -4,27 +4,29 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint .",
-    "build": "ncc build src/index.ts -o dist --source-map --license LICENSE"
+    "build": "ncc build src/index.ts -o dist --source-map --license LICENSE --minify"
+  },
+  "engines": {
+    "node": ">= 16.14.2"
   },
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/exec": "^1.0.4",
-    "@actions/tool-cache": "^1.6.1"
+    "@actions/core": "^1.6.0",
+    "@actions/exec": "^1.1.1",
+    "@actions/tool-cache": "^1.7.2"
   },
   "devDependencies": {
-    "@types/es6-shim": "^0.31.37",
-    "@types/node": "^10.9.4",
+    "@types/node": "^16.11.26",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.8.0",
-    "@vercel/ncc": "^0.27.0",
+    "@vercel/ncc": "^0.33.3",
     "eslint": "^7.10.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.21.2",
     "eslint-plugin-standard": "^4.0.1",
-    "typescript": "4.2.3"
+    "typescript": "^4.6.3"
   }
 }
