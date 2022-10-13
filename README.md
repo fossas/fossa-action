@@ -107,7 +107,7 @@ jobs:
 
 **Optional** If set to `true`, run all FOSSA commands in debug mode. Running `fossa analyze` in debug mode will generate a debug bundle that can be uploaded as a build artifact after this action completes.
 
-One way to upload build artifacts is to use the `upload-artifact` GitHub action. Example:
+One way to upload build artifacts is to use the [`upload-artifact`](https://github.com/actions/upload-artifact) GitHub action. Example:
 
 ```yml
 jobs:
