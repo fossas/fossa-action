@@ -6,6 +6,7 @@ import {
   RUN_TESTS,
   ENDPOINT,
   BRANCH,
+  DEBUG,
 } from './config';
 import { fetchFossaCli } from './download-cli';
 
@@ -26,6 +27,7 @@ export async function analyze(): Promise<void> {
     cmd,
     ...getEndpointArgs(),
     ...getBranchArgs(),
+    DEBUG ? '--debug' : null,
   ].filter(arg => arg);
 
   // Setup listeners

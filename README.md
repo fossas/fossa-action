@@ -103,6 +103,29 @@ jobs:
           endpoint: fossa.my-company.com
 ```
 
+### `debug`
+
+**Optional** If set to `true`, run all FOSSA commands in debug mode. Running `fossa analyze` in debug mode will generate a debug bundle that can be uploaded as a build artifact after this action completes.
+
+One way to upload build artifacts is to use the [`upload-artifact`](https://github.com/actions/upload-artifact) GitHub action. Example:
+
+```yml
+jobs:
+  fossa-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: fossas/fossa-action@main
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          debug: true
+      - uses: actions/upload-artifact@v3
+        with:
+          name: fossa.debug.json.gz
+          path: ./fossa.debug.json.gz
+```
+
+
 ## Examples
 We've provided a few examples of how to use FOSSA's Github Action in your own project. These examples use an API key stored as a Github secret environment variable `fossaAPiKey`.
 

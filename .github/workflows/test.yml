@@ -30,10 +30,17 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Run FOSSA scan and upload build data
+      - name: Run FOSSA scan in debug mode and upload build data
         uses: ./
         with:
           api-key: ${{secrets.fossaApiKey}}
+          debug: true
+
+      - name: Upload FOSSA debug bundle as a build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: fossa.debug.json.gz
+          path: ./fossa.debug.json.gz
 
       - name: Run FOSSA container scan and upload build data
         uses: ./
