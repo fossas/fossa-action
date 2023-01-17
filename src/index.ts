@@ -32,6 +32,7 @@ export async function analyze(): Promise<void> {
     cmd,
     ...getEndpointArgs(),
     ...getBranchArgs(),
+    ...getProjectArgs(),
     DEBUG ? '--debug' : null,
   ].filter(arg => arg);
 
