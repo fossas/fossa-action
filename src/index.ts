@@ -6,6 +6,7 @@ import {
   RUN_TESTS,
   ENDPOINT,
   BRANCH,
+  PROJECT,
   DEBUG,
 } from './config';
 import { fetchFossaCli } from './download-cli';
@@ -20,6 +21,10 @@ export async function analyze(): Promise<void> {
   const getBranchArgs = (): string[] => !BRANCH ? [] : [
     '--branch',
     BRANCH,
+  ];
+  const getProjectArgs = (): string[] => !PROJECT ? [] : [
+    '--project',
+    PROJECT,
   ];
 
   const getArgs = (cmd: string) => [

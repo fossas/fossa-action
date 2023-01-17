@@ -12,4 +12,5 @@ export const CONTAINER = getInput('container', getInputOptions());
 export const RUN_TESTS = getBooleanInput('run-tests', {required: false});
 export const ENDPOINT = getInput('endpoint', getInputOptions());
 export const BRANCH = getInput('branch', getInputOptions());
+export const PROJECT = getInput('project', getInputOptions());
 export const DEBUG = getBooleanInput('debug', {required: false});
