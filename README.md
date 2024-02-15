@@ -86,6 +86,23 @@ jobs:
           branch: some-feature-branch
 ```
 
+### `project`
+
+**Optional** Project flag passed to FOSSA CLI.
+
+Example
+```yml
+jobs:
+  fossa-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          project: some-project-name
+```
+
 ### `endpoint`
 
 **Optional** Endpoint passed to FOSSA CLI. Defaults to `app.fossa.com`. [Read more](https://github.com/fossas/spectrometer/blob/master/docs/userguide.md#common-fossa-project-flags).
@@ -144,7 +161,7 @@ jobs:
 ```
 
 ### Running tests
-This run `fossa tests` after doing an initial scan.
+This runs `fossa tests` after doing an initial scan.
 
 ```yml
 jobs:

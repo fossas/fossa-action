@@ -24,6 +24,11 @@ inputs:
       Override the detected FOSSA project branch. If running FOSSA analysis on a
       Pull Request, as a start you can use the contexts `github.ref` or `github.ref_name`.
     required: false
+  project:
+    description: >-
+      Override the detected FOSSA project name. If running FOSSA analysis on a
+      Pull Request, as a start you can use the contexts `github.ref` or `github.ref_name`.
+    required: false
   debug:
     description: >-
       Run all FOSSA commands in debug mode. Running `fossa analyze` in debug
