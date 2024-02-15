@@ -53,13 +53,14 @@ jobs:
         with:
           api-key: ${{secrets.fossaApiKey}}
           branch: develop
+          project: custom-test-project
 
-      - name: Run FOSSA scan with a project
+      - name: Run FOSSA test with a --project and --branch
         uses: ./
         with:
           api-key: ${{secrets.fossaApiKey}}
-          project: 'custom-test-project'
-          run-tests: true
+          branch: develop
+          project: custom-test-project
 
       - name: Run FOSSA test
         uses: ./

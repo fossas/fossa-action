@@ -161,7 +161,7 @@ jobs:
 ```
 
 ### Running tests
-This run `fossa tests` after doing an initial scan.
+This runs `fossa tests` after doing an initial scan.
 
 ```yml
 jobs:
