@@ -70,7 +70,7 @@ jobs:
         with:
           api-key: ${{secrets.fossaApiKey}}
           run-tests: ${{ github.event_name == 'pull_request' }}
-          test-diff-revision: ${{ github.base_ref }}
+          test-diff-revision: ${{ github.event.pull_request.base.sha }}
 
 ```
 
