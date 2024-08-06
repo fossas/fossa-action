@@ -65,7 +65,7 @@ export async function analyze(): Promise<void> {
     let args = [...getArgs('test'), CONTAINER];
 
     if (TEST_DIFF_REV && TEST_DIFF_REV !== '') {
-      args.push('--test', TEST_DIFF_REV);
+      args.push('--diff', TEST_DIFF_REV);
     }
 
     const exitCode = await exec('fossa', args, defaultOptions);
