@@ -58,6 +58,8 @@ jobs:
 Setting this field has no effect if `run-tests` is `false`.
 You must also set `run-tests` to `true` in order for this field to take effect.
 
+This example will run fossa test only if the workflow run event is a pull request and verify that there are no new issues relative to the base ref.
+
 ```yml
 jobs:
   fossa-scan:
@@ -67,8 +69,9 @@ jobs:
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
           api-key: ${{secrets.fossaApiKey}}
-          run-tests: true
-          test-diff-revision: 'v1.3.3'
+          run-tests: ${{ github.event_name == 'pull_request' }}
+          test-diff-revision: ${{ github.base_ref }}
+
 ```
 
 ### `container`
