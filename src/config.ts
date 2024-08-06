@@ -10,6 +10,7 @@ const getInputOptions = (required: boolean = false): InputOptions => ({
 export const FOSSA_API_KEY = getInput('api-key', getInputOptions(true));
 export const CONTAINER = getInput('container', getInputOptions());
 export const RUN_TESTS = getBooleanInput('run-tests', {required: false});
+export const TEST_DIFF_REV = getInput('test-diff-revision', {required: false});
 export const ENDPOINT = getInput('endpoint', getInputOptions());
 export const BRANCH = getInput('branch', getInputOptions());
 export const PROJECT = getInput('project', getInputOptions());

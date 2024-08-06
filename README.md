@@ -52,6 +52,25 @@ jobs:
           run-tests: true
 ```
 
+## `test-diff-revision`
+**Optional** If set to a string, FOSSA will run the `fossa test` command with the `--diff` [option](https://github.com/fossas/fossa-cli/blob/master/docs/references/subcommands/test.md#test-for-new-issues-compared-to-another-revision).
+
+Setting this field has no effect if `run-tests` is `false`.
+You must also set `run-tests` to `true` in order for this field to take effect.
+
+```yml
+jobs:
+  fossa-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          run-tests: true
+          test-diff-revision: main
+```
+
 ### `container`
 **Optional** A container name or OCI image path.  Set to use FOSSA's container scanning functionality. This will run `fossa container analyze` (default behavior) and `fossa container test` (if used in combination with `run-tests`).
 
