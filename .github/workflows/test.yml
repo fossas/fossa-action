@@ -73,7 +73,7 @@ jobs:
         with:
           api-key: ${{secrets.fossaApiKey}}
           run-tests: ${{ github.event_name == 'pull_request' }}
-          test-diff-revision: ${{ github.base_ref }}
+          test-diff-revision: ${{ github.head_ref }}
 
       - name: Run FOSSA test with container
         uses: ./
