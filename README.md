@@ -68,7 +68,7 @@ jobs:
         with:
           api-key: ${{secrets.fossaApiKey}}
           run-tests: true
-          test-diff-revision: main
+          test-diff-revision: 'v1.3.3'
 ```
 
 ### `container`
