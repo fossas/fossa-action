@@ -35,6 +35,11 @@ inputs:
       mode will generate a debug bundle that can be uploaded as a build artifact
       after this action completes.
     default: false
+  test-diff-revision:
+    description: >-
+      Run fossa test with the `--diff <revision>` option, which checks if there are new issues relative to `<revision>`.
+      Requires `run-tests` to be set in order to take effect.
+    required: false
 
 runs:
   using: node20

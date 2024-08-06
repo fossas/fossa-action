@@ -4,6 +4,7 @@ import {
   CONTAINER,
   FOSSA_API_KEY,
   RUN_TESTS,
+  TEST_DIFF_REV,
   ENDPOINT,
   BRANCH,
   PROJECT,
@@ -61,7 +62,13 @@ export async function analyze(): Promise<void> {
     }
   } else if (RUN_TESTS) {
     output = '';
-    const exitCode = await exec('fossa', [...getArgs('test'), CONTAINER], defaultOptions);
+    let args = [...getArgs('test'), CONTAINER];
+
+    if (TEST_DIFF_REV && TEST_DIFF_REV !== '') {
+      args.push('--diff', TEST_DIFF_REV);
+    }
+
+    const exitCode = await exec('fossa', args, defaultOptions);
 
     // Check output or exitCode
     if (exitCode !== 0 || output.match(failedRegex)) {
