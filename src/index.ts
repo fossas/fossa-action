@@ -33,7 +33,7 @@ export async function analyze(): Promise<void> {
 	  '--team',
 	  TEAM
   ];
-  const getPolicyArgs = (): string[] => !POLICy ? [] : [
+  const getPolicyArgs = (): string[] => !POLICY ? [] : [
 	  '--policy',
 	  POLICY
   ];
