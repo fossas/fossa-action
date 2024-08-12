@@ -8,6 +8,8 @@ import {
   ENDPOINT,
   BRANCH,
   PROJECT,
+  TEAM,
+  POLICY,
   DEBUG,
 } from './config';
 import { fetchFossaCli } from './download-cli';
@@ -27,6 +29,14 @@ export async function analyze(): Promise<void> {
     '--project',
     PROJECT,
   ];
+  const getTeamArgs = (): string[] => !TEAM ? [] : [
+	  '--team',
+	  TEAM
+  ];
+  const getPolicyArgs = (): string[] => !POLICy ? [] : [
+	  '--policy',
+	  POLICY
+  ];
 
   const getArgs = (cmd: string) => [
     CONTAINER ? 'container' : null,
@@ -34,6 +44,8 @@ export async function analyze(): Promise<void> {
     ...getEndpointArgs(),
     ...getBranchArgs(),
     ...getProjectArgs(),
+	...getTeamArgs(),
+	...getPolicyArgs(),
     DEBUG ? '--debug' : null,
   ].filter(arg => arg);
 
