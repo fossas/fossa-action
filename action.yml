@@ -31,11 +31,11 @@ inputs:
     required: false
   team:
     description: >-
-      Allows you to specify the team for your project. It uses the team name, just as `--team` in the CLI.
+      Allows you to specify the team for your project. It uses the team name, just as `--team` in the CLI. This will only work when creating a project.
     required: false
   policy:
     description: >-
-      Allows you to specify the policy for your project. It uses the policy name, just as `--policy` in the CLI
+      Allows you to specify the policy for your project. It uses the policy name, just as `--policy` in the CLI. This will only work when creating a project.
   debug:
     description: >-
       Run all FOSSA commands in debug mode. Running `fossa analyze` in debug
