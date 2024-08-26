@@ -8,6 +8,8 @@ import {
   ENDPOINT,
   BRANCH,
   PROJECT,
+  TEAM,
+  POLICY,
   DEBUG,
 } from './config';
 import { fetchFossaCli } from './download-cli';
@@ -27,6 +29,14 @@ export async function analyze(): Promise<void> {
     '--project',
     PROJECT,
   ];
+  const getTeamArgs = (): string[] => !TEAM ? [] : [
+    '--team',
+    TEAM,
+  ];
+  const getPolicyArgs = (): string[] => !POLICY ? [] : [
+    '--policy',
+    POLICY,
+  ];
 
   const getArgs = (cmd: string) => [
     CONTAINER ? 'container' : null,
@@ -34,6 +44,8 @@ export async function analyze(): Promise<void> {
     ...getEndpointArgs(),
     ...getBranchArgs(),
     ...getProjectArgs(),
+    ...getTeamArgs(),
+    ...getPolicyArgs(),
     DEBUG ? '--debug' : null,
   ].filter(arg => arg);
 
@@ -50,7 +62,7 @@ export async function analyze(): Promise<void> {
 
   // Collect default options: Env and listeners
   const PATH = process.env.PATH || '';
-  const defaultOptions = { env: { ...process.env, PATH, FOSSA_API_KEY}, listeners};
+  const defaultOptions = { env: { ...process.env, PATH, FOSSA_API_KEY }, listeners };
 
   if (!RUN_TESTS) {
     output = '';
@@ -62,7 +74,7 @@ export async function analyze(): Promise<void> {
     }
   } else if (RUN_TESTS) {
     output = '';
-    let args = [...getArgs('test'), CONTAINER];
+    const args = [...getArgs('test'), CONTAINER];
 
     if (TEST_DIFF_REV && TEST_DIFF_REV !== '') {
       args.push('--diff', TEST_DIFF_REV);

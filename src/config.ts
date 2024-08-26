@@ -14,4 +14,6 @@ export const TEST_DIFF_REV = getInput('test-diff-revision', {required: false});
 export const ENDPOINT = getInput('endpoint', getInputOptions());
 export const BRANCH = getInput('branch', getInputOptions());
 export const PROJECT = getInput('project', getInputOptions());
+export const TEAM = getInput('team', {required: false});
+export const POLICY = getInput('policy', {required: false});
 export const DEBUG = getBooleanInput('debug', {required: false});
