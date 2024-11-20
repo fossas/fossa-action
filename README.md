@@ -10,6 +10,15 @@ Find license compliance and security issues in your applications with [FOSSA](ht
 * Secure your open source code with accurate vulnerability detection and continuous integration
 
 ## About FOSSA Action
+
+> [!NOTE]
+> This GitHub action is primarily intended to be a quick and easy starting point.<br>
+> For more customization, we recommend [integrating FOSSA CLI directly](https://github.com/fossas/fossa-cli?tab=readme-ov-file#getting-started) in your CI pipeline.
+>
+> You can reference our public repositories for examples on how to do this if desired:
+> - [FOSSA CLI](https://github.com/fossas/fossa-cli/blob/master/.github/workflows/dependency-scan.yml)
+> - [FOSSA Broker](https://github.com/fossas/broker/blob/main/.github/workflows/dependency-scan.yml)
+
 FOSSA Action provides an easy to use entry point to using FOSSA in your github workflow. This github action will run FOSSA CLI in your github workflows with, at minimum, an API key. Below you can find [input documentation](#inputs) and [examples](#examples).
 
 FOSSA Action will run on any linux runner or on a MacOS runner. **Note**: In order to use container scanning, a running docker daemon is required - unfortunately Github's MacOS runner does not provide docker.
