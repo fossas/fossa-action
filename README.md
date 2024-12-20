@@ -2,7 +2,7 @@
 [![FOSSA Status](https://app.fossa.com/api/projects/custom%2B1%2Fgithub.com%2Ffossas%2Ffossa-action.svg?type=shield)](https://app.fossa.com/projects/custom%2B1%2Fgithub.com%2Ffossas%2Ffossa-action?ref=badge_shield)
 [![FOSSA Action](https://github.com/fossas/fossa-action/actions/workflows/test.yml/badge.svg)](https://github.com/fossas/fossa-action/actions/)
 
-Find license compliance and security issues in your applications with [FOSSA](https://fossa.com) in Github Actions, using latest FOSSA CLI.
+Find license compliance and security issues in your applications with [FOSSA](https://fossa.com) in your Github Actions, using latest FOSSA CLI.
 
 ## About FOSSA
 * Developer focused open source license and security compliance
