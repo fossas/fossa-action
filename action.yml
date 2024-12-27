@@ -47,7 +47,7 @@ inputs:
       Run fossa test with the `--diff <revision>` option, which checks if there are new issues relative to `<revision>`.
       Requires `run-tests` to be set in order to take effect.
     required: false
-  generate-report
+  generate-report:
     description: >-
       If set, after analyzing your project, FOSSA will generate a report which is accessible from the `report` step output.
       The value must be a [report format](https://github.com/fossas/fossa-cli/blob/master/docs/references/subcommands/report.md#specifying-a-report-format).
