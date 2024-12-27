@@ -61,6 +61,29 @@ jobs:
           run-tests: true
 ```
 
+## `generate-report`
+**Optional** If set, FOSSA will run the `fossa report` command. Currently only the "attribution" (or "licensing") report is supported.
+
+The value should be set to a [report format](https://github.com/fossas/fossa-cli/blob/master/docs/references/subcommands/report.md#specifying-a-report-format).
+
+The report's content is set as an output. Write the output to a file as needed.
+
+Example
+```yml
+jobs:
+  fossa-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: fossa
+        uses: fossas/fossa-action@main # Use a specific version if locking is preferred
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          run-tests: true
+          generate-report: html
+      - run: ${{ steps.fossa.outputs.report }} > report.html
+```
+
 ## `test-diff-revision`
 **Optional** If set to a string, FOSSA will run the `fossa test` command with the `--diff` [option](https://github.com/fossas/fossa-cli/blob/master/docs/references/subcommands/test.md#test-for-new-issues-compared-to-another-revision).
 
