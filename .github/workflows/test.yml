@@ -89,4 +89,4 @@ jobs:
           api-key: ${{secrets.fossaApiKey}}
           generate-report: json
       
-      - run: echo ${{ steps.fossa.outputs.report }}
+      - run: echo ${{ steps.example-generate-report.outputs.report }}
