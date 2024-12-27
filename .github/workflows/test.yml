@@ -81,3 +81,12 @@ jobs:
           api-key: ${{secrets.fossaApiKey}}
           container: alpine:latest
           run-tests: true
+
+      - name: Generate FOSSA report
+        id: example-generate-report
+        uses: ./
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          generate-report: json
+      
+      - run: echo ${{ steps.fossa.outputs.report }}
