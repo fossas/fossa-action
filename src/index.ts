@@ -1,5 +1,5 @@
-import { error, setFailed } from '@actions/core';
-import { exec } from '@actions/exec';
+import { error, setFailed, setOutput } from '@actions/core';
+import { exec, ExecListeners } from '@actions/exec';
 import {
   CONTAINER,
   FOSSA_API_KEY,
@@ -11,12 +11,14 @@ import {
   TEAM,
   POLICY,
   DEBUG,
+  REPORT_FORMAT,
 } from './config';
 import { fetchFossaCli } from './download-cli';
 
+// Github doesn't always collect exit codes correctly, so we check output
+const failedRegex = /(A fatal error occurred|Test failed\. Number of issues found)/;
+
 export async function analyze(): Promise<void> {
-  // Github doesn't always collect exit codes correctly, so we check output
-  const failedRegex = /(A fatal error occurred|Test failed\. Number of issues found)/;
   const getEndpointArgs = (): string[] => !ENDPOINT ? [] : [
     '--endpoint',
     ENDPOINT,
@@ -55,7 +57,7 @@ export async function analyze(): Promise<void> {
     output += data.toString();
   };
 
-  const listeners = {
+  const listeners: ExecListeners = {
     stdout: collectOutput,
     stderr: collectOutput,
   };
@@ -89,6 +91,53 @@ export async function analyze(): Promise<void> {
   }
 }
 
+export async function report(): Promise<void> {
+  const getEndpointArgs = (): string[] => !ENDPOINT ? [] : [
+    '--endpoint',
+    ENDPOINT,
+  ];
+  const getProjectArgs = (): string[] => !PROJECT ? [] : [
+    '--project',
+    PROJECT,
+  ];
+  const getFormatArgs = (): string[] => !REPORT_FORMAT ? [] : [
+    '--format',
+    REPORT_FORMAT,
+  ];
+
+  const getArgs = (cmd: string) => [
+    cmd,
+    ...getEndpointArgs(),
+    ...getProjectArgs(),
+    ...getFormatArgs(),
+    DEBUG ? '--debug' : null,
+  ].filter(arg => arg);
+
+  // Setup listeners
+  let output;
+  const collectOutput = (data: Buffer) => {
+    output += data.toString();
+  };
+
+  const listeners: ExecListeners = {
+    stdout: collectOutput,
+    stderr: collectOutput,
+  };
+
+  // Collect default options: Env and listeners
+  const PATH = process.env.PATH || '';
+  const defaultOptions = { env: { ...process.env, PATH, FOSSA_API_KEY }, listeners };
+  output = '';
+  const exitCode = await exec('fossa', [...getArgs('report attribution')], defaultOptions);
+
+  // Check output or exitCode
+  if (exitCode !== 0 || output.match(failedRegex)) {
+    throw new Error(`FOSSA failed to scan`);
+  }
+
+  setOutput('report', output);
+}
+
 async function run() {
   try {
     await fetchFossaCli();
@@ -98,6 +147,9 @@ async function run() {
 
   try {
     await analyze();
+    if(REPORT_FORMAT?.length) {
+      await report();
+    }
   } catch (e) {
     setFailed(e);
   }
