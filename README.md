@@ -206,12 +206,14 @@ jobs:
         uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
           api-key: ${{secrets.fossaApiKey}}
+          config: ./config/.fossa.yml # Use a config file not in the base working directory
 
       - name: "Run FOSSA Test"
         uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
           api-key: ${{secrets.fossaApiKey}}
           run-tests: true
+          config: ./config/.fossa.yml
 ```
 
 ### Running Container Scanning
