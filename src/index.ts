@@ -114,13 +114,13 @@ export async function report(): Promise<void> {
   ].filter(arg => arg);
 
   // Setup listeners
-  let stdout;
-  let stderr;
+  let stdout = '';
+  let stderr = '';
   const collectStdout = (data: Buffer) => {
     stdout += data.toString();
   };
   const collectStderr = (data: Buffer) => {
-    stdout += data.toString();
+    stderr += data.toString();
   };
 
   const listeners: ExecListeners = {
@@ -131,7 +131,6 @@ export async function report(): Promise<void> {
   // Collect default options: Env and listeners
   const PATH = process.env.PATH || '';
   const defaultOptions = { env: { ...process.env, PATH, FOSSA_API_KEY }, listeners };
-  stdout = '';
   const exitCode = await exec('fossa', getArgs(['report', 'attribution']), defaultOptions);
 
   // Check output or exitCode
