@@ -40,9 +40,9 @@ export async function analyze(): Promise<void> {
     POLICY,
   ];
 
-  const getArgs = (cmd: string) => [
+  const getArgs = (cmd: string[]) => [
     CONTAINER ? 'container' : null,
-    cmd,
+    ...cmd,
     ...getEndpointArgs(),
     ...getBranchArgs(),
     ...getProjectArgs(),
@@ -68,7 +68,7 @@ export async function analyze(): Promise<void> {
 
   if (!RUN_TESTS) {
     output = '';
-    const exitCode = await exec('fossa', [...getArgs('analyze'), CONTAINER], defaultOptions);
+    const exitCode = await exec('fossa', [...getArgs(['analyze']), CONTAINER], defaultOptions);
 
     // Check output or exitCode
     if (exitCode !== 0 || output.match(failedRegex)) {
@@ -76,7 +76,7 @@ export async function analyze(): Promise<void> {
     }
   } else if (RUN_TESTS) {
     output = '';
-    const args = [...getArgs('test'), CONTAINER];
+    const args = [...getArgs(['test']), CONTAINER];
 
     if (TEST_DIFF_REV && TEST_DIFF_REV !== '') {
       args.push('--diff', TEST_DIFF_REV);
@@ -105,8 +105,8 @@ export async function report(): Promise<void> {
     REPORT_FORMAT,
   ];
 
-  const getArgs = (cmd: string) => [
-    cmd,
+  const getArgs = (cmd: string[]) => [
+    ...cmd,
     ...getEndpointArgs(),
     ...getProjectArgs(),
     ...getFormatArgs(),
@@ -128,7 +128,7 @@ export async function report(): Promise<void> {
   const PATH = process.env.PATH || '';
   const defaultOptions = { env: { ...process.env, PATH, FOSSA_API_KEY }, listeners };
   output = '';
-  const exitCode = await exec('fossa', [...getArgs('report attribution')], defaultOptions);
+  const exitCode = await exec('fossa', getArgs(['report', 'attribution']), defaultOptions);
 
   // Check output or exitCode
   if (exitCode !== 0 || output.match(failedRegex)) {
@@ -147,7 +147,7 @@ async function run() {
 
   try {
     await analyze();
-    if(REPORT_FORMAT?.length) {
+    if (REPORT_FORMAT?.length) {
       await report();
     }
   } catch (e) {
