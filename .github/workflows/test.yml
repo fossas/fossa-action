@@ -12,8 +12,6 @@ on:
 
 jobs:
   fossa-scan:
-    strategy:
-      fail-fast: false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -88,5 +86,7 @@ jobs:
         with:
           api-key: ${{secrets.fossaApiKey}}
           generate-report: json
-      
-      - run: echo ${{ steps.example-generate-report.outputs.report }}
+
+      - name: Demonstrate report output
+        run: |
+          echo '${{ steps.example-generate-report.outputs.report }}' | jq

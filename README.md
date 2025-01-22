@@ -81,7 +81,7 @@ jobs:
           api-key: ${{secrets.fossaApiKey}}
           run-tests: true
           generate-report: html
-      - run: ${{ steps.fossa.outputs.report }} > report.html
+      - run: echo '${{ steps.fossa.outputs.report }}' > report.html
 ```
 
 ## `test-diff-revision`
