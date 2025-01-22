@@ -10,6 +10,7 @@ import {
   PROJECT,
   TEAM,
   POLICY,
+  CONFIG,
   DEBUG,
   REPORT_FORMAT,
 } from './config';
@@ -39,6 +40,10 @@ export async function analyze(): Promise<void> {
     '--policy',
     POLICY,
   ];
+  const getConfigPath = (): string[] => !CONFIG ? [] : [
+    '--config',
+    CONFIG,
+  ];
 
   const getArgs = (cmd: string[]) => [
     CONTAINER ? 'container' : null,
@@ -48,6 +53,7 @@ export async function analyze(): Promise<void> {
     ...getProjectArgs(),
     ...getTeamArgs(),
     ...getPolicyArgs(),
+    ...getConfigPath(),
     DEBUG ? '--debug' : null,
   ].filter(arg => arg);
 
