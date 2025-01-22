@@ -86,4 +86,7 @@ jobs:
         with:
           api-key: ${{secrets.fossaApiKey}}
           generate-report: json
-      - run: echo '${{ steps.example-generate-report.outputs.report }}'
+
+      - name: Demonstrate report output
+        run: |
+          echo '${{ steps.example-generate-report.outputs.report }}' | jq
