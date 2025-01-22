@@ -16,4 +16,6 @@ export const BRANCH = getInput('branch', getInputOptions());
 export const PROJECT = getInput('project', getInputOptions());
 export const TEAM = getInput('team', {required: false});
 export const POLICY = getInput('policy', {required: false});
+export const CONFIG = getInput('config', {required: false});
 export const DEBUG = getBooleanInput('debug', {required: false});
+export const REPORT_FORMAT = getInput('generate-report', getInputOptions());
