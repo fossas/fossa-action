@@ -114,28 +114,32 @@ export async function report(): Promise<void> {
   ].filter(arg => arg);
 
   // Setup listeners
-  let output;
-  const collectOutput = (data: Buffer) => {
-    output += data.toString();
+  let stdout;
+  let stderr;
+  const collectStdout = (data: Buffer) => {
+    stdout += data.toString();
+  };
+  const collectStderr = (data: Buffer) => {
+    stdout += data.toString();
   };
 
   const listeners: ExecListeners = {
-    stdout: collectOutput,
-    stderr: collectOutput,
+    stdout: collectStdout,
+    stderr: collectStderr,
   };
 
   // Collect default options: Env and listeners
   const PATH = process.env.PATH || '';
   const defaultOptions = { env: { ...process.env, PATH, FOSSA_API_KEY }, listeners };
-  output = '';
+  stdout = '';
   const exitCode = await exec('fossa', getArgs(['report', 'attribution']), defaultOptions);
 
   // Check output or exitCode
-  if (exitCode !== 0 || output.match(failedRegex)) {
+  if (exitCode !== 0 || stderr.match(failedRegex)) {
     throw new Error(`FOSSA failed to scan`);
   }
 
-  setOutput('report', output);
+  setOutput('report', stdout);
 }
 
 async function run() {
