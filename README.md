@@ -41,7 +41,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
 ```
 
 ### `run-tests`
@@ -57,7 +57,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           run-tests: true
 ```
 
@@ -100,7 +100,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           run-tests: ${{ github.event_name == 'pull_request' }}
           test-diff-revision: ${{ github.event.pull_request.base.sha }}
 
@@ -119,7 +119,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           container: ubuntu:20.04
 ```
 
@@ -136,7 +136,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           branch: some-feature-branch
 ```
 
@@ -153,7 +153,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           project: some-project-name
 ```
 
@@ -170,7 +170,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           endpoint: fossa.my-company.com
 ```
 
@@ -188,7 +188,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           debug: true
       - uses: actions/upload-artifact@v3
         with:
@@ -198,7 +198,7 @@ jobs:
 
 
 ## Examples
-We've provided a few examples of how to use FOSSA's Github Action in your own project. These examples use an API key stored as a Github secret environment variable `fossaAPiKey`.
+We've provided a few examples of how to use FOSSA's Github Action in your own project. These examples use an API key stored as a Github secret environment variable `FOSSA_API_KEY`.
 
 ### Running a scan
 This runs a basic FOSSA scan using FOSSA CLI on a your checked out project.
@@ -211,7 +211,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
 ```
 
 ### Running tests
@@ -228,13 +228,13 @@ jobs:
       - name: "Run FOSSA Scan"
         uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           config: ./config/.fossa.yml # Use a config file not in the base working directory
 
       - name: "Run FOSSA Test"
         uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           run-tests: true
           config: ./config/.fossa.yml
 ```
@@ -253,13 +253,13 @@ jobs:
       - name: "Run FOSSA Scan"
         uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           container: ubuntu:20.04
 
       - name: "Run FOSSA Test"
         uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           container: ubuntu:20.04
           run-tests: true
 ```
