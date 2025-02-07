@@ -10,11 +10,20 @@ Find license compliance and security issues in your applications with [FOSSA](ht
 * Secure your open source code with accurate vulnerability detection and continuous integration
 
 ## About FOSSA Action
+
+> [!NOTE]
+> This GitHub action is primarily intended to be a quick and easy starting point.<br>
+> For more customization or expanded platform support (e.g. Windows), we recommend [integrating FOSSA CLI directly](https://github.com/fossas/fossa-cli?tab=readme-ov-file#getting-started) in your CI pipeline.
+>
+> You can reference our public repositories for examples on how to do this if desired:
+> - [FOSSA CLI](https://github.com/fossas/fossa-cli/blob/master/.github/workflows/dependency-scan.yml)
+> - [FOSSA Broker](https://github.com/fossas/broker/blob/main/.github/workflows/dependency-scan.yml)
+
 FOSSA Action provides an easy to use entry point to using FOSSA in your github workflow. This github action will run FOSSA CLI in your github workflows with, at minimum, an API key. Below you can find [input documentation](#inputs) and [examples](#examples).
 
 FOSSA Action will run on any linux runner or on a MacOS runner. **Note**: In order to use container scanning, a running docker daemon is required - unfortunately Github's MacOS runner does not provide docker.
 
-Windows is not currently supported.
+Windows is not currently supported in this action, although it is supported when integrating FOSSA CLI directly.
 
 ### Versioning
 Please note: Versioning of this action does not correspond to the version of FOSSA CLI. This Action will always use the latest version of FOSSA CLI found [here](https://github.com/fossas/fossa-cli/releases).
@@ -32,7 +41,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
 ```
 
 ### `run-tests`
@@ -48,8 +57,31 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
+          api-key: ${{secrets.FOSSA_API_KEY}}
+          run-tests: true
+```
+
+## `generate-report`
+**Optional** If set, FOSSA will run the `fossa report` command. Currently only the "attribution" (or "licensing") report is supported.
+
+The value should be set to a [report format](https://github.com/fossas/fossa-cli/blob/master/docs/references/subcommands/report.md#specifying-a-report-format).
+
+The report's content is set as an output. Write the output to a file as needed.
+
+Example
+```yml
+jobs:
+  fossa-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: fossa
+        uses: fossas/fossa-action@main # Use a specific version if locking is preferred
+        with:
           api-key: ${{secrets.fossaApiKey}}
           run-tests: true
+          generate-report: html
+      - run: echo '${{ steps.fossa.outputs.report }}' > report.html
 ```
 
 ## `test-diff-revision`
@@ -68,7 +100,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           run-tests: ${{ github.event_name == 'pull_request' }}
           test-diff-revision: ${{ github.event.pull_request.base.sha }}
 
@@ -87,7 +119,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           container: ubuntu:20.04
 ```
 
@@ -104,7 +136,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           branch: some-feature-branch
 ```
 
@@ -121,7 +153,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           project: some-project-name
 ```
 
@@ -138,7 +170,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           endpoint: fossa.my-company.com
 ```
 
@@ -156,7 +188,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           debug: true
       - uses: actions/upload-artifact@v3
         with:
@@ -166,7 +198,7 @@ jobs:
 
 
 ## Examples
-We've provided a few examples of how to use FOSSA's Github Action in your own project. These examples use an API key stored as a Github secret environment variable `fossaAPiKey`.
+We've provided a few examples of how to use FOSSA's Github Action in your own project. These examples use an API key stored as a Github secret environment variable `FOSSA_API_KEY`.
 
 ### Running a scan
 This runs a basic FOSSA scan using FOSSA CLI on a your checked out project.
@@ -179,7 +211,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
 ```
 
 ### Running tests
@@ -196,13 +228,15 @@ jobs:
       - name: "Run FOSSA Scan"
         uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
+          config: ./config/.fossa.yml # Use a config file not in the base working directory
 
       - name: "Run FOSSA Test"
         uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           run-tests: true
+          config: ./config/.fossa.yml
 ```
 
 ### Running Container Scanning
@@ -219,13 +253,13 @@ jobs:
       - name: "Run FOSSA Scan"
         uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           container: ubuntu:20.04
 
       - name: "Run FOSSA Test"
         uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
-          api-key: ${{secrets.fossaApiKey}}
+          api-key: ${{secrets.FOSSA_API_KEY}}
           container: ubuntu:20.04
           run-tests: true
 ```
