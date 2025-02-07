@@ -4,8 +4,6 @@ name: 'FOSSA Action'
 # directly to main OR when pushing to a PR against main.
 on:
   pull_request:
-    branches:
-      - main
   push:
     branches:
       - main
