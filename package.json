@@ -7,7 +7,7 @@
     "build": "ncc build src/index.ts -o dist --source-map --license LICENSE --minify"
   },
   "engines": {
-    "node": ">= 20.16.0"
+    "node": ">= 22.13.1"
   },
   "dependencies": {
     "@actions/core": "^1.6.0",
@@ -15,7 +15,7 @@
     "@actions/tool-cache": "^1.7.2"
   },
   "devDependencies": {
-    "@types/node": "^20.16.0",
+    "@types/node": "^22.13.1",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.8.0",
     "@vercel/ncc": "^0.38",
