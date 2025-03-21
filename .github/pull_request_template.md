@@ -8,6 +8,9 @@
 > [!IMPORTANT]
 >
 > After merging, make sure to create a new GitHub release and associated tag for this release.
+> You can either create the tag locally and then create a corresponding GitHub release,
+> or just create both the tag and release using the GitHub Release UI.
+>
 > Additionally, if this is not a breaking change, make sure to update the `v1` tag:
 >
 > ```shell
