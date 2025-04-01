@@ -1,12 +1,2 @@
 # Default owner for everything else.
 * @fossas/analysis
-
-# The following files have no owner,
-# this allows PRs that only update dependencies
-# to be merged without review
-# (e.g. by dependabot or by team members).
-#
-# The codeowners file is parsed in bottom-up precedence,
-# so these are matched before the universal glob above.
-yarn.lock
-package.json
