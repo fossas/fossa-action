@@ -70,6 +70,7 @@ export async function analyze(): Promise<void> {
 
   // Collect default options: Env and listeners
   const PATH = process.env.PATH || '';
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const defaultOptions = { env: { ...process.env, PATH, FOSSA_API_KEY }, listeners };
 
   if (!RUN_TESTS) {
@@ -136,6 +137,7 @@ export async function report(): Promise<void> {
 
   // Collect default options: Env and listeners
   const PATH = process.env.PATH || '';
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const defaultOptions = { env: { ...process.env, PATH, FOSSA_API_KEY }, listeners };
   const exitCode = await exec('fossa', getArgs(['report', 'attribution']), defaultOptions);
 

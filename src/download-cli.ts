@@ -1,7 +1,7 @@
 import { addPath, debug } from '@actions/core';
 import { exec } from '@actions/exec';
 import { find, downloadTool, cacheDir, cacheFile, findAllVersions } from '@actions/tool-cache';
-import fs = require('fs');
+import fs from 'fs';
 
 const CACHE_NAME = 'fossa';
 

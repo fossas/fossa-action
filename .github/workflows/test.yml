@@ -3,6 +3,23 @@ name: 'FOSSA Action'
 on: push
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Install npm packages
+        run: yarn --frozen-lockfile
+
+      - name: Run lint
+        run: yarn lint
+
   fossa-scan:
     runs-on: ubuntu-latest
     steps:
