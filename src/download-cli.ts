@@ -1,7 +1,8 @@
 import { addPath, debug } from '@actions/core';
 import { exec } from '@actions/exec';
 import { find, downloadTool, cacheDir, cacheFile, findAllVersions } from '@actions/tool-cache';
-import fs from 'node:fs';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+import fs = require('fs');
 
 const CACHE_NAME = 'fossa';
 
