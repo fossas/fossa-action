@@ -197,6 +197,25 @@ jobs:
 ```
 
 
+### `working-directory`
+
+**Optional** Scan a project in a different directory.
+
+```yml
+jobs:
+  fossa-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: 
+          path: my-working-directory
+      - uses: fossas/fossa-action@main
+        with:
+          api-key: ${{secrets.FOSSA_API_KEY}}
+          working-directory: my-working-directory
+```
+
+
 ## Examples
 We've provided a few examples of how to use FOSSA's Github Action in your own project. These examples use an API key stored as a Github secret environment variable `FOSSA_API_KEY`.
 
