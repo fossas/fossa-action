@@ -199,7 +199,7 @@ jobs:
 
 ### `working-directory`
 
-**Optional** Scan a project in a different directory.
+**Optional** By default, the action will scan anything in the default github actions working directory. Use this option to scan a project in a different directory.
 
 ```yml
 jobs:
