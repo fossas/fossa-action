@@ -53,6 +53,10 @@ inputs:
       The value must be a [report format](https://github.com/fossas/fossa-cli/blob/master/docs/references/subcommands/report.md#specifying-a-report-format).
       Currently only the attribution report is supported.
     required: false
+  working-directory:
+    description: >-
+      The directory to analyze
+    required: false
 
 outputs:
   report:

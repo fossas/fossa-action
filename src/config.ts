@@ -19,3 +19,4 @@ export const POLICY = getInput('policy', {required: false});
 export const CONFIG = getInput('config', {required: false});
 export const DEBUG = getBooleanInput('debug', {required: false});
 export const REPORT_FORMAT = getInput('generate-report', getInputOptions());
+export const WORKING_DIRECTORY = getInput('working-directory', {required: false});

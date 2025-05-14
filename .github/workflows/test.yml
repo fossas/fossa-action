@@ -99,3 +99,14 @@ jobs:
       - name: Demonstrate report output
         run: |
           echo '${{ steps.example-generate-report.outputs.report }}' | jq
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with: 
+          path: different-working-directory
+      
+      - name: Scan a different directory
+        uses: ./
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          working-directory: different-working-directory
