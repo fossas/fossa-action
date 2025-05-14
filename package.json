@@ -20,7 +20,7 @@
     "@eslint/js": "^9.25.1",
     "@types/node": "^22.15.18",
     "@typescript-eslint/eslint-plugin": "^8.32.0",
-    "@typescript-eslint/parser": "^8.31.1",
+    "@typescript-eslint/parser": "^8.32.1",
     "@vercel/ncc": "^0.38",
     "eslint": "^9.26.0",
     "eslint-config-airbnb-base": "^15.0.0",
