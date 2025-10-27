@@ -44,7 +44,7 @@ jobs:
           debug: true
 
       - name: Upload FOSSA debug bundle as a build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: fossa.debug.json.gz
           path: ./fossa.debug.json.gz
