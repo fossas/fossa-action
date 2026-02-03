@@ -14,6 +14,8 @@ jobs:
         with:
           node-version: 20.x
 
+      - name: Install yarn
+        run: npm install -g yarn
       - name: Install npm packages
         run: yarn --frozen-lockfile
 
@@ -120,7 +122,7 @@ jobs:
 
       - name: Check Version
         run:
-          ./fossa --version | grep '3.15.0'
+          ./fossa/fossa --version | grep '3.15.0'
 
       # The following two blocks are one test. Don't separate them.
       - name: Installs a Specific version (normalized)
@@ -131,4 +133,4 @@ jobs:
 
       - name: Check Version
         run:
-          ./fossa --version | grep '3.15.0'
+          ./fossa/fossa --version | grep '3.15.0'
