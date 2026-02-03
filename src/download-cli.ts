@@ -39,6 +39,28 @@ async function getInstaller() {
   return downloadPath;
 }
 
+/**
+ * Select a CLI version to install.
+ *
+ * Defaults to latest.
+ */
+function selectCliVersion(platform: string) : string {
+  let selectedCliVersion: string;
+
+  if (PINNED_CLI_VERSION) {
+    const trimmed = PINNED_CLI_VERSION.trimStart();
+    if (trimmed.startsWith('v')) {
+      selectedCliVersion = trimmed.substring(1);
+    } else {
+      selectedCliVersion = trimmed;
+    }
+  } else {
+    selectedCliVersion = findAllVersions(CACHE_NAME, platform).sort().reverse()[0] || '-1'; // We'll never cache a version as -1
+  }
+
+  return selectedCliVersion;
+}
+
 export async function fetchFossaCli(): Promise<void> {
   const devNull = fs.createWriteStream('/dev/null', {flags: 'a'});
   const defaultOptions = {outStream: devNull};
@@ -47,7 +69,7 @@ export async function fetchFossaCli(): Promise<void> {
   const platform = getPlatform();
 
   // Get cached path
-  const selectedCliVersion = PINNED_CLI_VERSION || findAllVersions(CACHE_NAME, platform).sort().reverse()[0] || '-1'; // We'll never cache a version as -1
+  const selectedCliVersion = selectCliVersion(platform);
 
   let fossaPath = find(CACHE_NAME, selectedCliVersion, platform);
 
