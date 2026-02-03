@@ -115,6 +115,7 @@ jobs:
       - name: Installs a Specific version
         uses : ./
         with:
+          api-key: ${{secrets.fossaApiKey}}
           pinned-cli-version: 3.15.0
 
       - name: Check Version
@@ -125,6 +126,7 @@ jobs:
       - name: Installs a Specific version (normalized)
         uses : ./
         with:
+          api-key: ${{secrets.fossaApiKey}}
           pinned-cli-version: v3.15.0
 
       - name: Check Version
