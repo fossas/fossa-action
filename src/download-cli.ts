@@ -2,6 +2,7 @@ import { addPath, debug } from '@actions/core';
 import { exec } from '@actions/exec';
 import { find, downloadTool, cacheDir, cacheFile, findAllVersions } from '@actions/tool-cache';
 import * as fs from 'node:fs';
+import { PINNED_CLI_VERSION } from './config';
 
 const CACHE_NAME = 'fossa';
 
@@ -46,15 +47,18 @@ export async function fetchFossaCli(): Promise<void> {
   const platform = getPlatform();
 
   // Get cached path
-  const latestVersion = findAllVersions(CACHE_NAME, platform).sort().reverse()[0] || '-1'; // We'll never cache a version as -1
-  let fossaPath = find(CACHE_NAME, latestVersion, platform);
+  let selectedCliVersion = PINNED_CLI_VERSION
+    ? PINNED_CLI_VERSION
+    : findAllVersions(CACHE_NAME, platform).sort().reverse()[0] || '-1'; // We'll never cache a version as -1
 
-  if (latestVersion) debug(`Using FOSSA version ${latestVersion}`);
+  let fossaPath = find(CACHE_NAME, selectedCliVersion, platform);
+
+  if (selectedCliVersion) debug(`Using FOSSA version ${selectedCliVersion}`);
 
   if (!fossaPath) {
     debug(`Fetching new FOSSA version`);
 
-    if (await exec('bash', [installer, '-b', './fossa'], {...defaultOptions}) !== 0) {
+    if (await exec('bash', [installer, '-b', './fossa', selectedCliVersion], {...defaultOptions}) !== 0) {
       throw new Error(`Fossa failed to install correctly`);
     }
 
