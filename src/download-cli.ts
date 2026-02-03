@@ -47,9 +47,7 @@ export async function fetchFossaCli(): Promise<void> {
   const platform = getPlatform();
 
   // Get cached path
-  let selectedCliVersion = PINNED_CLI_VERSION
-    ? PINNED_CLI_VERSION
-    : findAllVersions(CACHE_NAME, platform).sort().reverse()[0] || '-1'; // We'll never cache a version as -1
+  const selectedCliVersion = PINNED_CLI_VERSION || findAllVersions(CACHE_NAME, platform).sort().reverse()[0] || '-1'; // We'll never cache a version as -1
 
   let fossaPath = find(CACHE_NAME, selectedCliVersion, platform);
 
