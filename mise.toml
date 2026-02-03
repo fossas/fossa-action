@@ -3,3 +3,7 @@ description = 'Build the dist/ version of the program.'
 run = '''
 yarn build
 '''
+
+[tools]
+node = "20.19.0"
+"npm:yarn" = "latest"
