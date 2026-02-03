@@ -115,6 +115,16 @@ jobs:
       - name: Installs a Specific version
         uses : ./
         with:
+          pinned-cli-version: 3.15.0
+
+      - name: Check Version
+        run:
+          ./fossa --version | grep '3.15.0'
+
+      # The following two blocks are one test. Don't separate them.
+      - name: Installs a Specific version (normalized)
+        uses : ./
+        with:
           pinned-cli-version: v3.15.0
 
       - name: Check Version
