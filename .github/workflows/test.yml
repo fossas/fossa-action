@@ -102,11 +102,20 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v5
-        with: 
+        with:
           path: different-working-directory
-      
+
       - name: Scan a different directory
         uses: ./
         with:
           api-key: ${{secrets.fossaApiKey}}
           working-directory: different-working-directory
+
+      - name: Installs a Specific version
+        uses :./
+        with:
+          pinned-cli-version: v3.15.0
+
+      - name: Check Version
+        run:
+          ./fossa --version | grep '3.15.0'
