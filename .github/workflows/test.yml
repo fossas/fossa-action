@@ -111,8 +111,9 @@ jobs:
           api-key: ${{secrets.fossaApiKey}}
           working-directory: different-working-directory
 
+      # The following two blocks are one test. Don't separate them.
       - name: Installs a Specific version
-        uses :./
+        uses : ./
         with:
           pinned-cli-version: v3.15.0
 
