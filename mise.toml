@@ -12,6 +12,10 @@ run = 'yarn lint'
 description = 'Lint the project while also auto-fixing things that can be.'
 run = 'yarn lint --fix'
 
+[tasks.test-local]
+description = 'Use `act` to test locally.'
+run = './.stubs/act push -s fossaApiKey=${FOSSA_API_KEY}'
+
 [tools]
 node = "20.19.0"
 "npm:eslint" = "latest"
