@@ -50,9 +50,9 @@ function selectCliVersion(platform: string) : string {
   if (PINNED_CLI_VERSION) {
     const trimmed = PINNED_CLI_VERSION.trimStart();
     if (trimmed.startsWith('v')) {
-      selectedCliVersion = trimmed.substring(1);
-    } else {
       selectedCliVersion = trimmed;
+    } else {
+      selectedCliVersion = `v${trimmed}`;
     }
   } else {
     selectedCliVersion = findAllVersions(CACHE_NAME, platform).sort().reverse()[0] || '-1'; // We'll never cache a version as -1

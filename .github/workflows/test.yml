@@ -122,14 +122,14 @@ jobs:
 
       - name: Check Version
         run:
-          ./fossa/fossa --version | grep '3.15.0'
+          ./fossa/fossa --version | grep 'v3.15.0'
 
       # The following two blocks are one test. Don't separate them.
       - name: Installs a Specific version (normalized)
         uses : ./
         with:
           api-key: ${{secrets.fossaApiKey}}
-          pinned-cli-version: v3.15.0
+          pinned-cli-version: 3.15.0
 
       - name: Check Version
         run:
