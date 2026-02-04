@@ -197,6 +197,27 @@ jobs:
 ```
 
 
+### `pinned-cli-version`
+
+**Optional** By default, the action will use the latest version of FOSSA CLI.
+In some specific circumstances it makes sense to pin the version of the CLI used by the action.
+To do that you can use `pinned-cli-version`:
+
+```yml
+jobs:
+  fossa-scan:
+    runs-on: ubuntu-latest
+      - uses: actions/checkout@v3
+      - uses: fossas/fossa-action@main
+        with:
+          api-key: ${{secrets.FOSSA_API_KEY}}
+          pinned-cli-version: v3.0.0
+      - uses: actions/upload-artifact@v3
+        with:
+          name: fossa.debug.json.gz
+          path: ./fossa.debug.json.gz
+```
+
 ### `working-directory`
 
 **Optional** By default, the action will scan anything in the default github actions working directory. Use this option to scan a project in a different directory.
@@ -207,7 +228,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with: 
+        with:
           path: my-working-directory
       - uses: fossas/fossa-action@main
         with:
