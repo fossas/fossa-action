@@ -7,6 +7,10 @@ inputs:
     description: >-
       Your FOSSA API key.
     required: true
+  pinned-cli-version:
+    description: >-
+      If set, use the specified FOSSA Cli version.
+    required: false
   run-tests:
     description: >-
       If set to `true` FOSSA will run the `fossa test` command.

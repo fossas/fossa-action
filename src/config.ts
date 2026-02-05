@@ -7,6 +7,7 @@ const getInputOptions = (required: boolean = false): InputOptions => ({
   trimWhitespace: true,
 });
 
+export const PINNED_CLI_VERSION = getInput('pinned-cli-version', getInputOptions(false));
 export const FOSSA_API_KEY = getInput('api-key', getInputOptions(true));
 export const CONTAINER = getInput('container', getInputOptions());
 export const RUN_TESTS = getBooleanInput('run-tests', {required: false});
