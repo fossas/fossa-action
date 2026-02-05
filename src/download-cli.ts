@@ -48,7 +48,7 @@ function selectCliVersion(platform: string) : string {
   let selectedCliVersion: string;
 
   if (PINNED_CLI_VERSION) {
-    const trimmed = PINNED_CLI_VERSION.trimStart();
+    const trimmed = PINNED_CLI_VERSION.trim();
     if (trimmed.startsWith('v')) {
       selectedCliVersion = trimmed;
     } else {
@@ -78,7 +78,7 @@ export async function fetchFossaCli(): Promise<void> {
   if (!fossaPath) {
     debug(`Fetching new FOSSA version`);
 
-    const versionArgs = (selectedCliVersion !== '-1' && [selectedCliVersion]) || [];
+    const versionArgs = selectedCliVersion !== '-1' ? [selectedCliVersion] : [];
 
     if (await exec('bash', [installer, '-b', './fossa', ...versionArgs], {...defaultOptions}) !== 0) {
       throw new Error(`Fossa failed to install correctly`);
