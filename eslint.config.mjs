@@ -169,6 +169,10 @@ export default defineConfig([globalIgnores(["**/dist/", "**/eslint.config.mjs"])
         "@typescript-eslint/no-inferrable-types": 0,
         "@typescript-eslint/no-var-requires": 1,
 
+        // Disable import/no-unresolved for TypeScript - TypeScript compiler handles module resolution
+        // and validates imports with NodeNext module resolution (including .js extensions for ESM)
+        "import/no-unresolved": 0,
+
         "import/extensions": [2, "always", {
             js: "never",
             ts: "never",
