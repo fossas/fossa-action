@@ -1,0 +1,6 @@
+#!/usr/bin/env -S mise tool-stub
+# Tool for running github actions locally for testing.
+
+version = "latest"
+tool = "act"
+bin = "act"
