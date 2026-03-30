@@ -44,6 +44,6 @@ jobs:
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git commit -m "Rebuild dist"
             git push
-            echo "::error::dist/ was out of date and has been rebuilt. A new workflow run will verify the fix."
+            echo "::error::dist/ was out of date and has been rebuilt. The push will trigger a new workflow run, which will verify the fix."
             exit 1
           fi
