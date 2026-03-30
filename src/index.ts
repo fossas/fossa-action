@@ -14,8 +14,8 @@ import {
   DEBUG,
   REPORT_FORMAT,
   WORKING_DIRECTORY,
-} from './config';
-import { fetchFossaCli } from './download-cli';
+} from './config.js';
+import { fetchFossaCli } from './download-cli.js';
 
 // Github doesn't always collect exit codes correctly, so we check output
 const failedRegex = /(A fatal error occurred|Test failed\. Number of issues found)/;

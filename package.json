@@ -1,6 +1,7 @@
 {
   "name": "fossa-action",
   "description": "Find license compliance and security issues in your applications with FOSSA",
+  "type": "module",
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint .",
@@ -10,9 +11,9 @@
     "node": ">= 20.16.0"
   },
   "dependencies": {
-    "@actions/core": "^2.0.2",
-    "@actions/exec": "^2.0.0",
-    "@actions/tool-cache": "^3.0.0"
+    "@actions/core": "^3.0.0",
+    "@actions/exec": "^3.0.0",
+    "@actions/tool-cache": "^4.0.0"
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.0",
