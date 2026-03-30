@@ -1,0 +1,58 @@
+name: Rebuild dist
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+concurrency:
+  group: rebuild-dist-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild-dist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 2
+
+      # We always want to run this workflow as it is a required check.
+      # But we only need to run the rebuild if there are no changes in
+      # any of these files:
+      # - package.json
+      # - package.lock
+      # - tsconfig.json
+      # - src/*
+      - name: Check for relevant changes
+        id: changes
+        run: |
+          if git diff --name-only HEAD~1 HEAD | grep -qE '^(package\.json|yarn\.lock|tsconfig\.json|src/)'; then
+            echo "relevant=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup Node.js
+        if: steps.changes.outputs.relevant == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20.x
+
+      - name: Rebuild and verify dist
+        if: steps.changes.outputs.relevant == 'true'
+        run: |
+          npm install -g yarn
+          yarn --frozen-lockfile
+          yarn build
+
+          git add dist/
+          if ! git diff --staged --quiet dist/; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git commit -m "Rebuild dist"
+            git push
+            echo "::error::dist/ was out of date and has been rebuilt. The push will trigger a new workflow run, which will verify the fix."
+            exit 1
+          fi
