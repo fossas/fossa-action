@@ -77,12 +77,24 @@ jobs:
           api-key: ${{secrets.fossaApiKey}}
           run-tests: true
 
+      # On the first push to a new branch, github.event.before is the zero SHA
+      # (0000000000000000000000000000000000000000) because there is no previous
+      # commit on that ref. In that case, fall back to diffing against origin/main.
+      - name: Determine diff revision
+        id: diff-rev
+        run: |
+          if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+            echo "rev=origin/main" >> "$GITHUB_OUTPUT"
+          else
+            echo "rev=${{ github.event.before }}" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Run FOSSA test with --diff
         uses: ./
         with:
           api-key: ${{secrets.fossaApiKey}}
-          run-tests: ${{ github.event_name == 'pull_request' }}
-          test-diff-revision: ${{ github.event.pull_request.base.sha }}
+          run-tests: true
+          test-diff-revision: ${{ steps.diff-rev.outputs.rev }}
 
       - name: Run FOSSA test with container
         uses: ./
