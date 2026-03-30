@@ -67,7 +67,7 @@ outputs:
     description: If `generate-report` is provided, this will contain the string contents of the report in the requested format.
 
 runs:
-  using: node20
+  using: node24
   main: dist/index.js
 
 branding:
