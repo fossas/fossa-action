@@ -1,0 +1,43 @@
+name: Rebuild dist
+
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - 'package.json'
+      - 'yarn.lock'
+      - 'src/**'
+      - 'tsconfig.json'
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild-dist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20.x
+
+      - name: Install yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+      - name: Commit and push if dist changed
+        run: |
+          if [ -n "$(git diff --name-only dist/)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add dist/
+            git commit -m "Rebuild dist"
+            git push
+          fi
