@@ -2,7 +2,7 @@ import { addPath, debug } from '@actions/core';
 import { exec } from '@actions/exec';
 import { find, downloadTool, cacheDir, cacheFile, findAllVersions } from '@actions/tool-cache';
 import * as fs from 'node:fs';
-import { PINNED_CLI_VERSION } from './config';
+import { PINNED_CLI_VERSION } from './config.js';
 
 const CACHE_NAME = 'fossa';
 
