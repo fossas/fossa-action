@@ -79,15 +79,16 @@ jobs:
 
       # On the first push to a new branch, github.event.before is the zero SHA
       # (0000000000000000000000000000000000000000) because there is no previous
-      # commit on that ref. In that case, fall back to diffing against origin/main.
+      # commit on that ref. In that case, fall back to diffing against the default branch.
       - name: Determine diff revision
         id: diff-rev
         env:
           BEFORE_SHA: ${{ github.event.before }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
           if [ "$BEFORE_SHA" = "0000000000000000000000000000000000000000" ]; then
-            git fetch origin main --depth=1
-            echo "rev=$(git rev-parse origin/main)" >> "$GITHUB_OUTPUT"
+            git fetch origin "$DEFAULT_BRANCH" --depth=1
+            echo "rev=$(git rev-parse "origin/$DEFAULT_BRANCH")" >> "$GITHUB_OUTPUT"
           else
             echo "rev=$BEFORE_SHA" >> "$GITHUB_OUTPUT"
           fi
