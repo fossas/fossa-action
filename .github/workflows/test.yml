@@ -82,12 +82,14 @@ jobs:
       # commit on that ref. In that case, fall back to diffing against origin/main.
       - name: Determine diff revision
         id: diff-rev
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
         run: |
-          if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+          if [ "$BEFORE_SHA" = "0000000000000000000000000000000000000000" ]; then
             git fetch origin main --depth=1
             echo "rev=$(git rev-parse origin/main)" >> "$GITHUB_OUTPUT"
           else
-            echo "rev=${{ github.event.before }}" >> "$GITHUB_OUTPUT"
+            echo "rev=$BEFORE_SHA" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run FOSSA test with --diff
