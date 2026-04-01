@@ -166,15 +166,10 @@ export default tseslint.config(
       "no-unused-expressions": 0,
       "prefer-arrow-callback": 0,
 
+      "no-use-before-define": "off",
       "@typescript-eslint/no-use-before-define": ["error", {
         variables: false,
         typedefs: false,
-        functions: false,
-        classes: false,
-      }],
-
-      "no-use-before-define": ["error", {
-        variables: true,
         functions: false,
         classes: false,
       }],
