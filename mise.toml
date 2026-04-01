@@ -20,5 +20,4 @@ run = './.stubs/act push -s fossaApiKey=${FOSSA_API_KEY}'
 node.corepack = true
 
 [tools]
-node = "24.14.1"
 "npm:eslint" = "latest"
