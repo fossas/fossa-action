@@ -9,15 +9,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Use Node.js 20.x
+      - name: Use Node.js 24.x
         uses: actions/setup-node@v6
         with:
-          node-version: 20.x
+          node-version: 24.x
 
-      - name: Install yarn
-        run: npm install -g yarn
       - name: Install npm packages
-        run: yarn --frozen-lockfile
+        run: corepack enable && yarn --immutable
 
       - name: Run lint
         run: yarn lint
@@ -28,13 +26,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Use Node.js 20.x
+      - name: Use Node.js 24.x
         uses: actions/setup-node@v6
         with:
-          node-version: 20.x
+          node-version: 24.x
 
       - name: Install npm packages
-        run: yarn --frozen-lockfile
+        run: corepack enable && yarn --immutable
 
       - name: Build
         run: yarn build

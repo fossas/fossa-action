@@ -7,8 +7,9 @@
     "lint": "eslint .",
     "build": "ncc build src/index.ts -o dist --source-map --license LICENSE --minify"
   },
+  "packageManager": "yarn@4.13.0",
   "engines": {
-    "node": ">= 20.16.0"
+    "node": ">= 24.0.0"
   },
   "dependencies": {
     "@actions/core": "^3.0.0",
@@ -19,7 +20,7 @@
     "@eslint/compat": "^2.0.0",
     "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.1",
-    "@types/node": "^25.2.1",
+    "@types/node": "^24.0.0",
     "@typescript-eslint/eslint-plugin": "^8.46.2",
     "@typescript-eslint/parser": "^8.52.0",
     "@vercel/ncc": "^0.38",

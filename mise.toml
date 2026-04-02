@@ -16,7 +16,8 @@ run = 'yarn lint --fix'
 description = 'Use `act` to test locally.'
 run = './.stubs/act push -s fossaApiKey=${FOSSA_API_KEY}'
 
+[settings]
+node.corepack = true
+
 [tools]
-node = "20.19.0"
 "npm:eslint" = "latest"
-"npm:yarn" = "latest"

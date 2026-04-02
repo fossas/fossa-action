@@ -38,13 +38,13 @@ jobs:
         if: steps.changes.outputs.relevant == 'true'
         uses: actions/setup-node@v6
         with:
-          node-version: 20.x
+          node-version: 24.x
 
       - name: Rebuild and verify dist
         if: steps.changes.outputs.relevant == 'true'
         run: |
-          npm install -g yarn
-          yarn --frozen-lockfile
+          corepack enable
+          yarn --immutable
           yarn build
 
           git add dist/
