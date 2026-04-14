@@ -34,6 +34,6 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-standard": "^5.0.0",
     "globals": "^17.5.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   }
 }
