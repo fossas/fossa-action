@@ -15,6 +15,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@actions/core@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "@actions/core@npm:3.0.1"
+  dependencies:
+    "@actions/exec": "npm:^3.0.0"
+    "@actions/http-client": "npm:^4.0.0"
+  checksum: 10c0/c1b86364e923e8b1bdcd338943d453c114b2cd8eb9507e07b7614679ea15ddf938b3bb75484aaf363bc3aa55ba926b9514ec08d79811a991f75c732a76c4d854
+  languageName: node
+  linkType: hard
+
 "@actions/exec@npm:^3.0.0":
   version: 3.0.0
   resolution: "@actions/exec@npm:3.0.0"
@@ -1506,7 +1516,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "fossa-action@workspace:."
   dependencies:
-    "@actions/core": "npm:^3.0.0"
+    "@actions/core": "npm:^3.0.1"
     "@actions/exec": "npm:^3.0.0"
     "@actions/tool-cache": "npm:^4.0.0"
     "@eslint/compat": "npm:^2.0.4"
