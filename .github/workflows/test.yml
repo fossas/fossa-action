@@ -113,8 +113,15 @@ jobs:
           generate-report: json
 
       - name: Demonstrate report output
+        # The report can be hundreds of KB and contains arbitrary characters
+        # (quotes, parens, $, etc.) from dependency copyright text. Interpolating
+        # it into the shell directly breaks quoting, and passing it via an env var
+        # exceeds MAX_ARG_STRLEN ("Argument list too long"). A quoted heredoc keeps
+        # the value in the script file and treats it literally, avoiding both.
         run: |
-          echo '${{ steps.example-generate-report.outputs.report }}' | jq
+          jq <<'__FOSSA_REPORT_EOF__'
+          ${{ steps.example-generate-report.outputs.report }}
+          __FOSSA_REPORT_EOF__
 
       - name: Checkout code
         uses: actions/checkout@v6

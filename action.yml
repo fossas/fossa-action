@@ -61,6 +61,11 @@ inputs:
     description: >-
       The directory to analyze
     required: false
+  include-unused-deps:
+    description: >-
+      If set to `true`, pass `--include-unused-deps` to `fossa analyze`. Includes all
+      dependencies found instead of filtering non-production deps. Ignored by VSI.
+    default: false
 
 outputs:
   report:
