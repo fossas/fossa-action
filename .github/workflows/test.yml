@@ -113,8 +113,9 @@ jobs:
           generate-report: json
 
       - name: Demonstrate report output
-        run: |
-          echo '${{ steps.example-generate-report.outputs.report }}' | jq
+        env:
+          REPORT: ${{ steps.example-generate-report.outputs.report }}
+        run: echo "$REPORT" | jq
 
       - name: Checkout code
         uses: actions/checkout@v6
