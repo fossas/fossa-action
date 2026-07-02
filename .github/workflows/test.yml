@@ -155,3 +155,17 @@ jobs:
       - name: Check Version
         run:
           ./fossa/fossa --version | grep '3.15.0'
+
+  # Dogfood the released action. The fossa-scan job above tests the working
+  # copy (./); this runs the published fossas/fossa-action@v2 against this repo.
+  dogfood:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Run released FOSSA action (@v2) on this repo
+        uses: fossas/fossa-action@v2
+        with:
+          api-key: ${{secrets.fossaApiKey}}
+          run-tests: true
