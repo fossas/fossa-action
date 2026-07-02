@@ -16,6 +16,9 @@
     "@actions/exec": "^3.0.0",
     "@actions/tool-cache": "^4.0.0"
   },
+  "resolutions": {
+    "undici": "^6.27.0"
+  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.12.2",
