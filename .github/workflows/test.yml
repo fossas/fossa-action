@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Use Node.js 24.x
         uses: actions/setup-node@v6
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Use Node.js 24.x
         uses: actions/setup-node@v6
@@ -113,11 +113,18 @@ jobs:
           generate-report: json
 
       - name: Demonstrate report output
+        # The report can be hundreds of KB and contains arbitrary characters
+        # (quotes, parens, $, etc.) from dependency copyright text. Interpolating
+        # it into the shell directly breaks quoting, and passing it via an env var
+        # exceeds MAX_ARG_STRLEN ("Argument list too long"). A quoted heredoc keeps
+        # the value in the script file and treats it literally, avoiding both.
         run: |
-          echo '${{ steps.example-generate-report.outputs.report }}' | jq
+          jq <<'__FOSSA_REPORT_EOF__'
+          ${{ steps.example-generate-report.outputs.report }}
+          __FOSSA_REPORT_EOF__
 
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           path: different-working-directory
 
@@ -148,3 +155,19 @@ jobs:
       - name: Check Version
         run:
           ./fossa/fossa --version | grep '3.15.0'
+
+  # Dogfood the released action. The fossa-scan job above tests the working
+  # copy (./); this runs the published fossas/fossa-action@v2 against this repo.
+  # analyze-only: run-tests would run `fossa test` with no prior `fossa analyze`
+  # in this job (the action only analyzes when run-tests is false), testing a
+  # revision this job never uploaded.
+  dogfood:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Run released FOSSA action (@v2) on this repo
+        uses: fossas/fossa-action@v2
+        with:
+          api-key: ${{secrets.fossaApiKey}}

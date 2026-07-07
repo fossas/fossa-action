@@ -21,3 +21,4 @@ export const CONFIG = getInput('config', {required: false});
 export const DEBUG = getBooleanInput('debug', {required: false});
 export const REPORT_FORMAT = getInput('generate-report', getInputOptions());
 export const WORKING_DIRECTORY = getInput('working-directory', {required: false});
+export const INCLUDE_UNUSED_DEPS = getBooleanInput('include-unused-deps', {required: false});

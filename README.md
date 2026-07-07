@@ -218,6 +218,22 @@ jobs:
           path: ./fossa.debug.json.gz
 ```
 
+### `include-unused-deps`
+
+**Optional** If set to `true`, pass `--include-unused-deps` to `fossa analyze`. This includes all dependencies found instead of filtering non-production deps. See the [analyze subcommand reference](https://github.com/fossas/fossa-cli/blob/master/docs/references/subcommands/analyze.md) for details. Has no effect when `container` is set.
+
+```yml
+jobs:
+  fossa-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
+        with:
+          api-key: ${{secrets.FOSSA_API_KEY}}
+          include-unused-deps: true
+```
+
 ### `working-directory`
 
 **Optional** By default, the action will scan anything in the default github actions working directory. Use this option to scan a project in a different directory.

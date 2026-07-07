@@ -14,6 +14,7 @@ import {
   DEBUG,
   REPORT_FORMAT,
   WORKING_DIRECTORY,
+  INCLUDE_UNUSED_DEPS,
 } from './config.js';
 import { fetchFossaCli } from './download-cli.js';
 
@@ -76,7 +77,11 @@ export async function analyze(): Promise<void> {
 
   if (!RUN_TESTS) {
     output = '';
-    const exitCode = await exec('fossa', [...getArgs(['analyze']), CONTAINER], defaultOptions);
+    const analyzeArgs = [...getArgs(['analyze']), CONTAINER].filter(arg => arg);
+    if (INCLUDE_UNUSED_DEPS && !CONTAINER) {
+      analyzeArgs.push('--include-unused-deps');
+    }
+    const exitCode = await exec('fossa', analyzeArgs, defaultOptions);
 
     // Check output or exitCode
     if (exitCode !== 0 || output.match(failedRegex)) {
