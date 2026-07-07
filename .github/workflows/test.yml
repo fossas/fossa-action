@@ -158,6 +158,9 @@ jobs:
 
   # Dogfood the released action. The fossa-scan job above tests the working
   # copy (./); this runs the published fossas/fossa-action@v2 against this repo.
+  # analyze-only: run-tests would run `fossa test` with no prior `fossa analyze`
+  # in this job (the action only analyzes when run-tests is false), testing a
+  # revision this job never uploaded.
   dogfood:
     runs-on: ubuntu-latest
     steps:
@@ -168,4 +171,3 @@ jobs:
         uses: fossas/fossa-action@v2
         with:
           api-key: ${{secrets.fossaApiKey}}
-          run-tests: true
