@@ -411,14 +411,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/ncc@npm:^0.38":
-  version: 0.38.4
-  resolution: "@vercel/ncc@npm:0.38.4"
+"@vercel/ncc@npm:^0.44":
+  version: 0.44.1
+  resolution: "@vercel/ncc@npm:0.44.1"
   dependencies:
     node-gyp: "npm:latest"
   bin:
     ncc: dist/ncc/cli.js
-  checksum: 10c0/dd6f5e95c09aa2db957788dd1fc7e5dc208b5268dc19a1560f8a71c1b18d234bb8ca0990f972051efcbc8d1cc5458242168bbdca54212a605ed0b4f680d3d876
+  checksum: 10c0/7747278179716cbb460a25b27c9d3845740298afbfb64bf02cb3e82f878fc21eb60b7a077111bdc6f320e90a466ce49fc49108dcd455dc5eb6a5adae2d07758e
   languageName: node
   linkType: hard
 
@@ -1438,7 +1438,7 @@ __metadata:
     "@types/node": "npm:^24.12.2"
     "@typescript-eslint/eslint-plugin": "npm:^8.63.0"
     "@typescript-eslint/parser": "npm:^8.63.0"
-    "@vercel/ncc": "npm:^0.38"
+    "@vercel/ncc": "npm:^0.44"
     eslint: "npm:^10.7.0"
     eslint-config-airbnb-base: "npm:^15.0.0"
     eslint-config-standard: "npm:^17.1.0"
