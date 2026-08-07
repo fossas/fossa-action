@@ -17,23 +17,23 @@
     "@actions/tool-cache": "^4.0.0"
   },
   "devDependencies": {
-    "@eslint/compat": "^2.0.4",
-    "@eslint/eslintrc": "^3.3.3",
+    "@eslint/compat": "^2.1.0",
+    "@eslint/eslintrc": "^3.3.6",
     "@eslint/js": "^9.39.1",
-    "@types/node": "^24.12.2",
-    "@typescript-eslint/eslint-plugin": "^8.58.2",
-    "@typescript-eslint/parser": "^8.52.0",
-    "@vercel/ncc": "^0.38",
-    "eslint": "^10.2.1",
+    "@types/node": "^24.13.3",
+    "@typescript-eslint/eslint-plugin": "^8.63.0",
+    "@typescript-eslint/parser": "^8.63.0",
+    "@vercel/ncc": "^0.44",
+    "eslint": "^10.8.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-n": "^17.23.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-promise": "^7.3.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-standard": "^5.0.0",
-    "globals": "^17.5.0",
+    "globals": "^17.7.0",
     "typescript": "^5.9.3"
   }
 }
