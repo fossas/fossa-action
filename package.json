@@ -21,19 +21,19 @@
     "@eslint/eslintrc": "^3.3.6",
     "@eslint/js": "^9.39.1",
     "@types/node": "^24.13.3",
-    "@typescript-eslint/eslint-plugin": "^8.63.0",
+    "@typescript-eslint/eslint-plugin": "^8.67.0",
     "@typescript-eslint/parser": "^8.63.0",
     "@vercel/ncc": "^0.44",
     "eslint": "^10.8.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-n": "^17.23.1",
+    "eslint-plugin-n": "^18.3.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^7.3.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-standard": "^5.0.0",
-    "globals": "^17.7.0",
+    "globals": "^17.11.0",
     "typescript": "^5.9.3"
   }
 }
