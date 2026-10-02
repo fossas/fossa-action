@@ -3,11 +3,19 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
+    groups:
+      all:
+        patterns:
+          - "*"
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
+    groups:
+      all:
+        patterns:
+          - "*"
     ignore:
       - dependency-name: "@types/node"
         update-types: ["version-update:semver-major"]
