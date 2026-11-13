@@ -22,6 +22,8 @@ jobs:
 
   fossa-scan:
     runs-on: ubuntu-latest
+    env:
+      CONTAINER_TEST_IMAGE: fossa-action-ci:alpine
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -49,11 +51,24 @@ jobs:
           name: fossa.debug.json.gz
           path: ./fossa.debug.json.gz
 
+      - name: Build patched Alpine test image
+        run: |
+          docker build --pull --tag "$CONTAINER_TEST_IMAGE" - <<'EOF'
+            FROM alpine:3.24 AS patched
+            RUN apk upgrade --no-cache
+
+            # The scanner inspects each layer, so ship only the patched filesystem.
+            FROM scratch
+            COPY --from=patched / /
+            CMD ["/bin/sh"]
+          EOF
+
       - name: Run FOSSA container scan and upload build data
         uses: ./
         with:
           api-key: ${{secrets.fossaApiKey}}
-          container: alpine:latest
+          container: ${{ env.CONTAINER_TEST_IMAGE }}
+          project: index.docker.io/library/alpine
 
       - name: Run FOSSA scan with branch
         uses: ./
@@ -102,7 +117,8 @@ jobs:
         uses: ./
         with:
           api-key: ${{secrets.fossaApiKey}}
-          container: alpine:latest
+          container: ${{ env.CONTAINER_TEST_IMAGE }}
+          project: index.docker.io/library/alpine
           run-tests: true
 
       - name: Generate FOSSA report
